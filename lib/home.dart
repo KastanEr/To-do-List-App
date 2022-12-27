@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
           },
         ),
 
-        title: const Text('To-Do'),
+        title: const Text('Home'),
         
         actions: <Widget> [
           IconButton(
