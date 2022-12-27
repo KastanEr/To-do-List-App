@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/running.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({Key? key}) : super(key: key);
@@ -32,6 +33,10 @@ class _MenuPageState extends State<MenuPage> {
               title: const Text('업무 진척도'),
               onTap: () {
                 print("업무 진척도");
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => runningPage()),
+                );
               },
             ),
             ListTile(
