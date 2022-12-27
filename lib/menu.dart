@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/upcomming.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({Key? key}) : super(key: key);
@@ -45,7 +46,10 @@ class _MenuPageState extends State<MenuPage> {
               leading: const Icon(Icons.wysiwyg, color: Colors.deepPurpleAccent),
               title: const Text('예정'),
               onTap: () {
-                print("예정");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const UpcommingPage()),
+                );
               },
             ),
             ListTile(
@@ -64,6 +68,7 @@ class _MenuPageState extends State<MenuPage> {
             ),
 
             
+            
 
           ],
         ),
@@ -73,3 +78,7 @@ class _MenuPageState extends State<MenuPage> {
     );
   }
 }
+
+// class FolderAndProjectView extends StatefulWidget {
+//   const FolderAndProjectView()
+// }
