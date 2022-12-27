@@ -16,7 +16,6 @@ class TodoApp extends StatelessWidget {
       routes: {
         '/': (BuildContext context) => const HomePage(),
         '/menu': (BuildContext context) => const MenuPage(),
-        
       },
     );
   }
