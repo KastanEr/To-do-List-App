@@ -24,15 +24,23 @@ class _ProjectPage extends State<ProjectPage> {
             semanticLabel: 'menu',
           ),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const MenuPage()),
+            Navigator.pop(context,
+                MaterialPageRoute(builder: (context) => const MenuPage())
             );
           },
         ),
-        title: Text('${widget.asd}'), //가져온 프로젝트 데이터 이름으로 타이틀 설정
 
         actions: <Widget> [
+          IconButton(
+              onPressed: (){
+                print('chatting');
+              },
+              icon: Icon(Icons.chat)),
+          IconButton(
+              onPressed: (){
+                print('search');
+              },
+              icon: Icon(Icons.search)),
           IconButton(
             icon: const Icon(
               Icons.home,
@@ -40,19 +48,57 @@ class _ProjectPage extends State<ProjectPage> {
             ),
             onPressed: () {
               print('home');
-              Navigator.pop(context,
-                MaterialPageRoute(builder: (context) => const MenuPage()));
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const HomePage()));
             },
           ),
+
         ],
       ),
 
 
-        body: SafeArea(
-        child: ListView(
-          
-        ),
-      ),
-    );
+        body: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.only(left:20.0,top: 15.0,right:20.0),
+              decoration: BoxDecoration(
+                  border: Border(
+                      bottom: BorderSide(
+                        color: Colors.black,
+                      )
+
+                  )
+              ),
+
+              child : Row(
+                  children: [
+                    Text("${widget.asd}", //가져온 프로젝트 데이터 이름으로 타이틀 설정
+                      style: TextStyle(fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),),
+                  ]
+
+              ),
+
+
+
+
+            ),
+            Container(
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.date_range)
+                    ],
+                  )
+                ],
+              ),
+            )
+          ],
+        )
+
+
+      );
   }
 }

@@ -27,7 +27,7 @@ final kEvents = LinkedHashMap<DateTime, List<Event>>(
 
 
 final _kEventSource = Map.fromIterable(
-    List.generate(3, (index) => index), //3은 전체 일정있는 날, index는 해당날짜의 todo 번호
+    List.generate(0, (index) => index), //3은 전체 일정있는 날, index는 해당날짜의 todo 번호
     key: (item) => DateTime.utc(2022, 12, item), //날짜
     value: (item) => List.generate(
         item+1, (index) => Event('일정${index + 1}')))

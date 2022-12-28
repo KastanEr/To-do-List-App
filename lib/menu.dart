@@ -58,10 +58,10 @@ class _MenuPageState extends State<MenuPage> {
         title: const Text('캘린더'),
         onTap: () {
           print("캘린더");
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => CalendarPage()),
-          // );
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CalendarPage()),
+          );
         },
       ),
 
