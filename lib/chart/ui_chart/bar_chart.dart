@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class BarChart extends CustomPainter {
@@ -12,7 +11,7 @@ class BarChart extends CustomPainter {
   double bottomPadding = 0.0;
   double leftPadding = 0.0;
 
-  BarChart({required this.data, required this.labels, this.color = Colors.blue});
+  BarChart({required this.data, required this.labels, required this.color});
 
   @override
   void paint(Canvas canvas, Size size) {
