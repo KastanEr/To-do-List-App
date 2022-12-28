@@ -53,13 +53,18 @@ class _MenuPageState extends State<MenuPage> {
                 print("예정");
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.calendar_month, color: Colors.red,),
-              title: const Text('캘린더'),
-              onTap: () {
-                print("캘린더");
-              },
-            ),
+
+            // ListTile(
+            //   leading: const Icon(Icons.calendar_month, color: Colors.red,),
+            //   title: const Text('캘린더'),
+            //   onTap: () {
+            //     print("캘린더");
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => CalendarPage()),
+            //     );
+            //   },
+            // ),
 
             const Divider(
               height: 10,
