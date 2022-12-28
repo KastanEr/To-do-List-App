@@ -13,11 +13,12 @@ class TodoApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'To Do',
-      initialRoute: '/',
+      initialRoute: '/login',
       routes: {
         '/': (BuildContext context) => const HomePage(),
         '/menu': (BuildContext context) => const MenuPage(),
         '/upcomming': (BuildContext context) => const UpcommingPage(),
+        '/login': (BuildContext context) => const LoginPage(),
       },
     );
   }

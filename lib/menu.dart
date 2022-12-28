@@ -63,13 +63,8 @@ class _MenuPageState extends State<MenuPage> {
         endIndent: 10,
       ),
     ];
-    List<TodoProject> projectList = LoginedUser.loginedUser.projectList;
-    for(int i = 0; i < projectList.length; i++) {
-      listTiles.add(ListTile(
-        title: Text(projectList[i].title),
-        onTap: () => print('프로젝트'),
-      ));
-    }
+    List<TodoProject> projectList = <TodoProject>[];
+    
     return listTiles;
   }
 
@@ -90,7 +85,8 @@ class _MenuPageState extends State<MenuPage> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () => setState(() {
-          LoginedUser.loginedUser.projectList.add(TodoProject(title: 'Test Project'));
+          
+          // LoginedUser.loginedUser!.projectList.add(TodoProject(title: 'Test Project'));
         }),
       ),
     );

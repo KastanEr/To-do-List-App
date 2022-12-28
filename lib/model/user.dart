@@ -7,22 +7,22 @@ class User {
   late String email;
   late String password;
   late TodoProject defaultProject;
-  late List<TodoProject> projectList;
+  late List<String> projectList;
   late List<String> notificationList;
   late int numberOfTodo;
   late int numberOfDone;
 
   User({
     this.uid,
-    required String name,
-    required String email,
-    required String password,
+    required this.name,
+    required this.email,
+    required this.password,
     this.numberOfDone = 0,
     this.numberOfTodo = 0,
   }) {
     defaultProject = TodoProject(title: 'default');
-    projectList = <TodoProject>[];
-    notificationList = <String>[];
+    projectList = <String>['fdsafdsa', 'fsafdsafds'];
+    notificationList = <String>['fdsafdsaf'];
   }
 
   User.fromJson(Map<String, dynamic> json) {
@@ -34,9 +34,9 @@ class User {
     name = json['name'];
     email = json['email'];
     password = json['password'];
-    defaultProject = json['defaultProject'];
-    projectList = json['projectList'];
-    notificationList = json['notificationList'];
+    defaultProject = TodoProject.fromJson(json['defaultProject']);
+    projectList = json['projectList'].cast<String>();
+    notificationList = json['notificationList'].cast<String>();
     numberOfTodo = json['numberOfTodo'];
     numberOfDone = json['numberOfDone'];
   }
@@ -46,26 +46,10 @@ class User {
     'name': name,
     'email': email,
     'password': password,
-    'defaultProject': defaultProject,
+    'defaultProject': defaultProject.toJson(),
     'projectList': projectList,
-    'notificationList': notificationList,
+    'notificationList': notificationList[0],
     'numberOfTodo': numberOfTodo,
     'numberOfDone': numberOfDone,
   };
-
-  void addProject(TodoProject newProject) {
-    projectList.add(newProject);
-  }
-  
-  void deleteProject(int index) {
-    projectList.removeAt(index);
-  }
-  
-  void addNotification(TodoNotification newNotification) {
-
-  }
-
-  void deleteNotification() {
-
-  }
 }
