@@ -1,27 +1,33 @@
+import 'package:intl/intl.dart';
 import 'todo.dart';
 
-class Project {
+class Today {
   int numberOfTodo = 0;
-  late String title;
+  late int date;
   List<dynamic> content = <dynamic>[];
-  List<String> collaborator = <String>[];
 
-  Project({
-    String? title,
-  }) : title = title ?? '제목 없음';
+  Today({
+    required int date,
+  });
 
-  Project.fromJson(Map<String, dynamic> json) {
+  String getToday() {
+    DateTime now = DateTime.now();
+    DateFormat formatter = DateFormat('MM-dd');
+    var strToday = formatter.format(now);
+    return strToday;
+  }
+
+  Today.fromJson(Map<String, dynamic> json) {
     fromJson(json);
   }
 
   void fromJson(Map<String, dynamic> json) {
-    title = json['title'];
+    date = json['date'];
     content = json['content'];
-    collaborator = json['collaborator'];
   }
 
   Map<String, dynamic> toJson() => {
-    
+
   };
 
   void addTodo(Todo newTodo) {
@@ -35,11 +41,4 @@ class Project {
     }
   }
 
-  void addHeading(String newHeading) {
-    content.add(newHeading);
-  }
-
-  void addCollaborator(String newUid) {
-    collaborator.add(newUid);
-  }
 }

@@ -6,6 +6,7 @@ class User {
   late String _name;
   late String _email;
   late String _password;
+  late String _position;
   late Project _default;
   late List<Project> _projectList;
   late List<Notification> _notificationList;

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/mypage.dart';
+import 'package:todolist/project.dart';
 import 'package:todolist/running.dart';
+import 'package:todolist/today.dart';
 import 'package:todolist/upcomming.dart';
 
 class MenuPage extends StatefulWidget {
@@ -27,6 +30,10 @@ class _MenuPageState extends State<MenuPage> {
               title: const Text('내 프로필'),
               onTap: () {
                 print("내 프로필");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyPage()),
+                );
               },
             ),
             ListTile(
@@ -45,12 +52,17 @@ class _MenuPageState extends State<MenuPage> {
               title: const Text('오늘'),
               onTap: () {
                 print("오늘");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Today()),
+                );
               },
             ),
             ListTile(
               leading: const Icon(Icons.wysiwyg, color: Colors.deepPurpleAccent),
               title: const Text('예정'),
               onTap: () {
+                print("예정");
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const UpcommingPage()),
@@ -70,6 +82,17 @@ class _MenuPageState extends State<MenuPage> {
               thickness: 2,
               indent: 10,
               endIndent: 10,
+            ),
+            ListTile(
+              leading: const Icon(Icons.pending_actions_outlined, color: Colors.black,),
+              title: const Text('프로젝트'),
+              onTap: () {
+                print("프로젝트");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProjectPage()),
+                );
+              },
             ),
 
             
