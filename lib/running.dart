@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/home.dart';
 import 'package:todolist/menu.dart';
 import 'chart/ui_chart/bar_chart.dart';
 import 'chart/ui_chart/pie_chart.dart';
 
 class runningPage extends StatelessWidget {
+
   runningPage({Key? key}) : super(key: key);
 
-  List<double> points = [50, 0, 73, 100,150, 120, 200, 80]; // 그래프에 나타낼 임의의 포인트 값
+  // 바 차트에서 사용할 임의의 데이터
+  List<double> points = [20, 30, 50, 100, 150, 120, 70, 30]; // 그래프에 나타낼 임의의 포인트 값
   List<String> labels = [ // 가로축에 적을 텍스트(레이블)
-    "2012",
-    "2013",
-    "2014",
-    "2015",
-    "2016",
-    "2017",
-    "2018",
-    "2019",
+    "Bronze",
+    "Silver",
+    "Gold",
+    "Platinum",
+    "Diamond",
+    "Master",
+    "Gmaster",
+    "Challenger",
   ];
+
+  int num = 60;
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +29,8 @@ class runningPage extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(
-            Icons.menu,
-            semanticLabel: 'menu',
+            Icons.arrow_back_ios,
+            semanticLabel: 'arrow_back_ios',
           ),
           onPressed: () {
             Navigator.push(
@@ -40,44 +45,54 @@ class runningPage extends StatelessWidget {
         actions: <Widget> [
           IconButton(
             icon: const Icon(
-              Icons.notifications,
-              semanticLabel: 'notifications',
+              Icons.home,
+              semanticLabel: 'home',
             ),
             onPressed: () {
-              print('Notification Button');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePage()),
+              );
             },
           ),
         ],
       ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              Container(
-                margin:EdgeInsets.all(100),
-                child: CustomPaint(
-                  size: Size(150, 150),
-                  painter: PieChart(percentage: 70,
-                      textScaleFactor: 1.0),
-                ),
+      body: Column (
+        children: [
+          SizedBox(height: 50.0,),
+          Text('Schedule Status',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
+          SizedBox(height: 30.0,),
+          Row(
+            children: [
+              SizedBox(width: 25.0,),
+              CustomPaint(
+                size: Size(150, 150),
+                painter: PieChart(percentage: num, // 임의의 값
+                    textScaleFactor: 1.0),
               ),
-              Container(
-                margin:EdgeInsets.all(10),
-                child: CustomPaint(
-                    size: Size(250,250),
-                    foregroundPainter: BarChart(
-                        data : points,
-                        labels :labels,
-                        color:Color(0xFF2A1800))
-                ),
-              ),
+              SizedBox(width: 25.0,),
+              Text(" 생성한 일 : data \n 완료한 일 : $num ",style: TextStyle(fontSize: 20),)
             ],
           ),
-        ),
-      ),
-
-
+          SizedBox(height: 70.0,),
+          Text("Management Tier",style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
+          SizedBox(height: 30.0,),
+          Row(
+            children: [
+              SizedBox(width: 25.0,),
+              CustomPaint(
+                  size: Size(200,200),
+                  foregroundPainter: BarChart(
+                      data : points,
+                      labels :labels,
+                      color: Color(0xFF151F14))
+              ),
+              SizedBox(width: 20.0,),
+              Text(" 당신의 티어는 \n ${labels[4]} 입니다.",style: TextStyle(fontSize: 20),),
+            ],
+          ),
+        ],
+      )
     );
   }
 }

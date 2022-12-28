@@ -80,7 +80,6 @@ class _MenuPageState extends State<MenuPage> {
         automaticallyImplyLeading: true,
         title: const Text('메뉴'),
       ),
-
       body: SafeArea(
         child: ListView(
           children: _getProjectList(),
