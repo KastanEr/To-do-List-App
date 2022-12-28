@@ -7,7 +7,7 @@ import 'app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  LoginedUser.loginedUser.projectList.add(TodoProject(title: '테스트 프로젝트'));
+  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // LoginedUser.loginedUser.projectList.add(TodoProject(title: '테스트 프로젝트'));
   runApp(const TodoApp());
 }

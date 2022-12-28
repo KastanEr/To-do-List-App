@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:todolist/model/todoproject.dart';
+
 import 'package:todolist/running.dart';
 import 'package:todolist/upcomming.dart';
 import 'logineduser.dart';
+import 'package:todolist/calendar.dart';
 import 'firebasecontroller.dart';
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'project.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({Key? key}) : super(key: key);
@@ -53,6 +57,11 @@ class _MenuPageState extends State<MenuPage> {
         leading: const Icon(Icons.calendar_month, color: Colors.red,),
         title: const Text('캘린더'),
         onTap: () {
+          print("캘린더");
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => CalendarPage()),
+          // );
         },
       ),
 
@@ -65,9 +74,20 @@ class _MenuPageState extends State<MenuPage> {
     ];
     List<TodoProject> projectList = LoginedUser.loginedUser.projectList;
     for(int i = 0; i < projectList.length; i++) {
+      String asd;
       listTiles.add(ListTile(
         title: Text(projectList[i].title),
-        onTap: () => print('프로젝트'),
+        onTap: () {
+          print('프로젝트');
+          asd = projectList[i].title;
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ProjectPage(asd)
+            ),
+          );
+        }
+
       ));
     }
     return listTiles;
