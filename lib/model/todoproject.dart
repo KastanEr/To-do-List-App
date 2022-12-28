@@ -1,16 +1,16 @@
 import 'todo.dart';
 
-class Project {
-  int numberOfTodo = 0;
+class TodoProject {
   late String title;
   List<dynamic> contnet = <dynamic>[];
   List<String> collaborator = <String>[];
+  int numberOfTodo = 0;
 
-  Project({
+  TodoProject({
     String? title,
   }) : title = title ?? '제목 없음';
 
-  Project.fromJson(Map<String, dynamic> json) {
+  TodoProject.fromJson(Map<String, dynamic> json) {
     fromJson(json);
   }
 
@@ -21,7 +21,10 @@ class Project {
   }
 
   Map<String, dynamic> toJson() => {
-    
+    'title': title,
+    'content': contnet,
+    'collaborator': collaborator,
+    'numberOfTodo': numberOfTodo,
   };
 
   void addTodo(Todo newTodo) {
@@ -41,5 +44,9 @@ class Project {
 
   void addCollaborator(String newUid) {
     collaborator.add(newUid);
+  }
+
+  void deleteCollaborator(String uid) {
+    collaborator.remove(uid);
   }
 }

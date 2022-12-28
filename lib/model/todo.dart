@@ -1,4 +1,3 @@
-
 class Todo {
   String? id;
   late String title;
@@ -16,7 +15,7 @@ class Todo {
     this.finalDeadLine,
     this.done = false,
     this.important = false,
-  }) : this.title = title ?? '제목 없음', this.description = description ?? '';
+  }) : title = title ?? '제목 없음', description = description ?? '';
 
   Todo.fromJson(Map<String, dynamic> json) {
     fromJson(json);
@@ -43,5 +42,13 @@ class Todo {
   };
 
   void toggleDone() => done = !done;
+  
   void toggleImportant() => important = !important;
+
+  void setDeadLine(DateTime newDeadLine) {
+    deadLine = newDeadLine;
+  }
+  void setFinalDeadLine(DateTime newFinalDeadLine) {
+    finalDeadLine = newFinalDeadLine;
+  }
 }
