@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Todo {
   String? id;
   late String title;
   late String description;
-  DateTime? deadLine;
-  DateTime? finalDeadLine; 
+  Timestamp? deadLine;
+  Timestamp? finalDeadLine; 
   late bool done;
   late bool important;
 
@@ -45,10 +47,10 @@ class Todo {
   
   void toggleImportant() => important = !important;
 
-  void setDeadLine(DateTime newDeadLine) {
+  void setDeadLine(Timestamp newDeadLine) {
     deadLine = newDeadLine;
   }
-  void setFinalDeadLine(DateTime newFinalDeadLine) {
+  void setFinalDeadLine(Timestamp newFinalDeadLine) {
     finalDeadLine = newFinalDeadLine;
   }
 }

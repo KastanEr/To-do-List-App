@@ -1,14 +1,11 @@
-import 'package:flutter/material.dart';
-
 import 'todoproject.dart';
 import 'todonotification.dart';
 
 class User {
-  static int uidNumber = 0;
-  late String uid;
+  String? uid;
   late String name;
   late String email;
-  late String _password;
+  late String password;
   late TodoProject defaultProject;
   late List<TodoProject> projectList;
   late List<String> notificationList;
@@ -16,14 +13,13 @@ class User {
   late int numberOfDone;
 
   User({
+    this.uid,
     required String name,
     required String email,
     required String password,
     this.numberOfDone = 0,
     this.numberOfTodo = 0,
   }) {
-    uid = uidNumber.toString();
-    uidNumber++;
     defaultProject = TodoProject(title: 'default');
     projectList = <TodoProject>[];
     notificationList = <String>[];
@@ -37,7 +33,7 @@ class User {
     uid = json['uid'];
     name = json['name'];
     email = json['email'];
-    _password = json['password'];
+    password = json['password'];
     defaultProject = json['defaultProject'];
     projectList = json['projectList'];
     notificationList = json['notificationList'];
@@ -49,7 +45,7 @@ class User {
     'uid': uid,
     'name': name,
     'email': email,
-    'password': _password,
+    'password': password,
     'defaultProject': defaultProject,
     'projectList': projectList,
     'notificationList': notificationList,
@@ -61,8 +57,8 @@ class User {
     projectList.add(newProject);
   }
   
-  void deleteProject() {
-
+  void deleteProject(int index) {
+    projectList.removeAt(index);
   }
   
   void addNotification(TodoNotification newNotification) {
@@ -70,7 +66,6 @@ class User {
   }
 
   void deleteNotification() {
-    
-  }
 
+  }
 }

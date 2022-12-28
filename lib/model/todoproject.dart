@@ -5,6 +5,7 @@ class TodoProject {
   List<dynamic> contnet = <dynamic>[];
   List<String> collaborator = <String>[];
   int numberOfTodo = 0;
+  int numberOfDone = 0;
 
   TodoProject({
     String? title,
