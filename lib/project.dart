@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:todolist/model/todoproject.dart';
 
 import 'home.dart';
 import 'menu.dart';
 
 class ProjectPage extends StatefulWidget {
-  final String projectname;
+  final TodoProject project;
 
   // const ProjectPage(String title, {Key? key}) : super(key: key);
-  const ProjectPage(this.projectname); //화면전환하면서 프로젝트 이름 데이터를 가져옴
+  const ProjectPage(this.project); //화면전환하면서 프로젝트 이름 데이터를 가져옴
 
   @override
   _ProjectPage createState() => _ProjectPage();
@@ -158,7 +159,7 @@ class _ProjectPage extends State<ProjectPage> {
 
               child : Row(
                   children: [
-                    Text("${widget.projectname}", //가져온 프로젝트 데이터 이름으로 타이틀 설정
+                    Text("${widget.project.title}", //가져온 프로젝트 데이터 이름으로 타이틀 설정
                       style: TextStyle(fontSize: 30,
                         fontWeight: FontWeight.bold,
                       ),),
