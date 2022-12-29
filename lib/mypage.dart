@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todolist/account.dart';
+import 'package:todolist/profile.dart';
+
 
 class MyPage extends StatelessWidget {
   const MyPage({Key? key}) : super(key: key);
@@ -49,7 +50,7 @@ class _mypageListViewState extends State<mypageListView> {
                   onTap: () {
                     var push = Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => AccountPage()),
+                      MaterialPageRoute(builder: (context) => Profile()),
                     );
                   }
               ),
