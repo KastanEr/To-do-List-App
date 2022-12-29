@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todolist/model/todoproject.dart';
 import 'package:todolist/running.dart';
 import 'package:todolist/upcomming.dart';
+import 'calender.dart';
 import 'logineduser.dart';
 import 'firebasecontroller.dart';
 import 'dart:async';
@@ -113,6 +114,10 @@ Widget _builder(BuildContext context, AsyncSnapshot snapshot) {
       leading: const Icon(Icons.calendar_month, color: Colors.red,),
       title: const Text('캘린더'),
       onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => CalendarPage()),
+        );
       },
     ),
 
