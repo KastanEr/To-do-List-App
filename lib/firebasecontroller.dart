@@ -24,7 +24,7 @@ class FirebaseController {
   /* Project */
   /// static accessors
   static get projectCollection => FirebaseFirestore.instance.collection('Projects');
-  static get projectOrdered => projectCollection.orderBy('pid', descending: true);
+  static get projectOrdered => projectCollection.orderBy('deadline', descending: true);
   static get projectGet => projectOrdered.get();
   static get projectSnapshots => projectOrdered.snapshots();
 
@@ -37,7 +37,7 @@ class FirebaseController {
   /* Todo */
   /// static accessors
   static get todoCollection => FirebaseFirestore.instance.collection('Todos');
-  static get todoOrdered => todoCollection.orderBy('tid', descending: true);
+  static get todoOrdered => todoCollection.orderBy('deadline', descending: true);
   static get todoGet => todoCollection.get();
   static get todoSnapshots => todoCollection.snapshots();
 
