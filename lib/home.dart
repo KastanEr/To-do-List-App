@@ -22,6 +22,60 @@ class HomePage extends StatefulWidget {
       _ProgressIndicatorExampleState();
 }
 
+class MyEventList extends StatelessWidget{
+  List<String> tasks = ['개인과제','프로젝트','플러터','개인과제','프로젝트','플러터'];
+  Widget build(BuildContext context){
+    return ListView.builder(
+        padding: const EdgeInsets.all(16.0),
+        itemCount: tasks.length,
+        itemBuilder: (BuildContext ctx, int idx) {
+          return ListTile(
+            leading : Checkbox(
+              value: false,
+              onChanged: (bool? value) {
+                value = value!;
+              },
+            ),
+            title: Text("${tasks[idx]}"),
+            trailing: IconButton(
+              onPressed: () {
+
+              },
+              icon: Icon(Icons.star_border),
+
+            ),
+
+          );
+        }
+    );
+  }
+
+}
+
+class MyimportantList extends StatelessWidget{
+  List<String> tasks = ['직','무','유','기'];
+  Widget build(BuildContext context){
+    return ListView.builder(
+        padding: const EdgeInsets.all(16.0),
+        itemCount: tasks.length,
+        itemBuilder: (BuildContext ctx, int idx) {
+          return ListTile(
+            leading : Checkbox(
+              value: false,
+              onChanged: (bool? value) {
+                value = value!;
+              },
+            ),
+            title: Text("${tasks[idx]}"),
+            trailing: Text("d-7")
+
+          );
+        }
+    );
+  }
+
+}
+
 class _ProgressIndicatorExampleState extends State<HomePage>
   with TickerProviderStateMixin {
   late AnimationController controller;
@@ -29,63 +83,8 @@ class _ProgressIndicatorExampleState extends State<HomePage>
   List<bool> isChecked = [];
   List<bool> Checked = [];
 
-  // today List
-  List<Widget> _getTodayList () {
 
-    List<Widget> todayList = <Widget>[];
 
-    for (var i = 0; i < 3; i++) {
-      isChecked.add(false);
-      todayList.add(
-        Container(
-          child : Row (
-            children: <Widget>[
-              Checkbox(
-                value: isChecked[i],
-                onChanged: (bool? value) {
-                  setState(() {
-                     isChecked[i] = value!;
-                  });
-                },
-              ),
-              Text("일정 ${i+1}"),
-
-            ],
-          )
-        )
-      );
-    }
-
-    return todayList;
-  }
-
-  // daily List
-  List<Widget> _getDailyList () {
-
-    List<Widget> dailyList = <Widget>[];
-
-    for (var i = 0; i < 3; i++) {
-      Checked.add(false);
-      dailyList.add(
-          Container(
-              child : Row (
-                children: <Widget>[
-                  Checkbox(value: Checked[i],
-                    onChanged: (value) {
-                      setState(() {
-                        Checked[i] = value!;
-                      });
-                    },
-                  ),
-                  Text("일정 ${i+1}"),
-                ],
-              )
-          )
-
-      );
-    }
-    return dailyList;
-  }
 
   void initState() {
     controller = AnimationController(
@@ -134,6 +133,7 @@ class _ProgressIndicatorExampleState extends State<HomePage>
           ),
         ],
       ),
+
 
       body: Container(
         margin: const EdgeInsets.all(10.0),
@@ -196,7 +196,7 @@ class _ProgressIndicatorExampleState extends State<HomePage>
             ),
             Container(
               margin: const EdgeInsets.all(5.0),
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.only(top: 15.0),
               decoration: BoxDecoration(
                   border: Border.all(
                     width: 1,
@@ -208,48 +208,19 @@ class _ProgressIndicatorExampleState extends State<HomePage>
               ),
 
               child: Column(
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.only(top: 15.0),
-                        decoration: BoxDecoration(
-                            border: Border(
-                                bottom: BorderSide(
-                                  color: Colors.black,
-                                )
-                            )
-                        ),
-                        child: Row(
-                          children: <Widget>[
-                            Text('Today',style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-                            SizedBox(width: 190,),
-                            IconButton(
-                              icon: const Icon(
-                                Icons.add,
-                                semanticLabel: 'add',
-                              ),
-                              onPressed: () {
-                                print('add button pressed');
-                              },
-                            ),
-                          ],
+                  children:[
+                    Text("Today",
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
 
-                        ),
-                      ),
-                    ],
-                  ),
+                    Container(
+                      margin: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(16.0),
 
-                  Container(
-                    height: 200,
-                    child: ListView(
-                      padding: const EdgeInsets.all(8),
-                      children: _getTodayList(),
-                    ),
-                  ),
-
-                ],
-              ),
+                      height: 200,
+                      child: MyEventList(),
+                    )
+                  ]
+              )
             ),
             Container(
               margin: const EdgeInsets.all(5.0),
@@ -265,40 +236,24 @@ class _ProgressIndicatorExampleState extends State<HomePage>
               ),
 
               child: Column(
-                children: <Widget>[
-                  Row(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(top: 15.0),
-                          decoration: BoxDecoration(
-                              border: Border(
-                                  bottom: BorderSide(
-                                    color: Colors.black,
-                                  ),
-                              ),
-                          ),
-                          child: Row(
-                            children: [
-                              Text('중요일정',style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-                              SizedBox(width: 180,),
-                            ],
-                          ),
-                        ),
-                      ]
-                  ),
-                  Container(
-                    height: 200,
-                    child: ListView(
-                      padding: const EdgeInsets.all(8),
-                      children: _getDailyList(),
-                    ),
-                  ),
-                ],
-              ),
+                  children:[
+                    Text("중요일정",
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+
+                    Container(
+                      margin: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(16.0),
+
+                      height: 200,
+                      child: MyimportantList(),
+                    )
+                  ]
+              )
             )
           ],
         ),
       ),
+
     );
   }
 }
