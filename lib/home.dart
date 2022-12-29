@@ -60,14 +60,14 @@ class MyimportantList extends StatelessWidget{
         itemCount: tasks.length,
         itemBuilder: (BuildContext ctx, int idx) {
           return ListTile(
-            leading : Checkbox(
-              value: false,
-              onChanged: (bool? value) {
-                value = value!;
-              },
-            ),
-            title: Text("${tasks[idx]}"),
-            trailing: Text("d-7")
+              leading : Checkbox(
+                value: false,
+                onChanged: (bool? value) {
+                  value = value!;
+                },
+              ),
+              title: Text("${tasks[idx]}"),
+              trailing: Text("d-7")
 
           );
         }
@@ -77,7 +77,7 @@ class MyimportantList extends StatelessWidget{
 }
 
 class _ProgressIndicatorExampleState extends State<HomePage>
-  with TickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late AnimationController controller;
   bool determinate = false;
   List<bool> isChecked = [];
@@ -195,60 +195,60 @@ class _ProgressIndicatorExampleState extends State<HomePage>
 
             ),
             Container(
-              margin: const EdgeInsets.all(5.0),
-              padding: const EdgeInsets.only(top: 15.0),
-              decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 1,
-                    color: Colors.black,
-                  ),
-                  borderRadius: BorderRadius.all(
-                      Radius.circular(15.0)
-                  )
-              ),
-
-              child: Column(
-                  children:[
-                    Text("Today",
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-
-                    Container(
-                      margin: const EdgeInsets.all(16.0),
-                      padding: const EdgeInsets.all(16.0),
-
-                      height: 200,
-                      child: MyEventList(),
+                margin: const EdgeInsets.all(5.0),
+                padding: const EdgeInsets.only(top: 15.0),
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 1,
+                      color: Colors.black,
+                    ),
+                    borderRadius: BorderRadius.all(
+                        Radius.circular(15.0)
                     )
-                  ]
-              )
+                ),
+
+                child: Column(
+                    children:[
+                      Text("Today",
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+
+                      Container(
+                        margin: const EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16.0),
+
+                        height: 200,
+                        child: MyEventList(),
+                      )
+                    ]
+                )
             ),
             Container(
-              margin: const EdgeInsets.all(5.0),
-              padding: const EdgeInsets.all(15.0),
-              decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 1,
-                    color: Colors.black,
-                  ),
-                  borderRadius: BorderRadius.all(
-                      Radius.circular(15.0)
-                  )
-              ),
-
-              child: Column(
-                  children:[
-                    Text("중요일정",
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-
-                    Container(
-                      margin: const EdgeInsets.all(16.0),
-                      padding: const EdgeInsets.all(16.0),
-
-                      height: 200,
-                      child: MyimportantList(),
+                margin: const EdgeInsets.all(5.0),
+                padding: const EdgeInsets.all(15.0),
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 1,
+                      color: Colors.black,
+                    ),
+                    borderRadius: BorderRadius.all(
+                        Radius.circular(15.0)
                     )
-                  ]
-              )
+                ),
+
+                child: Column(
+                    children:[
+                      Text("중요일정",
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+
+                      Container(
+                        margin: const EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16.0),
+
+                        height: 200,
+                        child: MyimportantList(),
+                      )
+                    ]
+                )
             )
           ],
         ),
