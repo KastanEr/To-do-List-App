@@ -124,7 +124,18 @@ Widget _builder(BuildContext context, AsyncSnapshot snapshot) {
     ),
   ];
 
+  for(int i = 0; i < LoginedUser.loginedUser!.projectList.length; i++) {
+    var data = snapshot.data.doc(LoginedUser.loginedUser!.projectList[i]);
+    TodoProject project = TodoProject.fromJson(data);
+    listTiles.add(
+      ListTile(
+        title: Text(project.title),
+      )
+    );
+  }
+
   return ListView(
     children: listTiles,
   );
 }
+
