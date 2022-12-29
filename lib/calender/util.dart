@@ -38,6 +38,9 @@ final _kEventSource = Map.fromIterable(
 //일정리스트
   ..addAll({
 
+    kEventday[1]:[
+      Event('asd'),
+    ],
 
     kToday: [
       Event('오늘의 일정 1'),

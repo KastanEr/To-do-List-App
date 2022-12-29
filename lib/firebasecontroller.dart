@@ -17,7 +17,7 @@ class FirebaseController {
 
   /// static methods
   // firebase query methods (add, update & delete)
-  static void addUser(User user) => userCollection.add(user.toJson());
+  static Future<DocumentReference> addUser(User user) => userCollection.add(user.toJson());
   static void updateUser(User user) => userCollection.doc(user.uid).set(user.toJson());
   static void deleteUser(String uid) => userCollection.doc(uid).delete();
 
@@ -43,7 +43,7 @@ class FirebaseController {
 
   /// static methods
   // firebase query methods (add, update & delete)
-  static void addTodo(Todo todo) => todoCollection.add(todo.toJson());
+  static Future<DocumentReference> addTodo(Todo todo) => todoCollection.add(todo.toJson());
   static void updateTodo(Todo todo) => todoCollection.doc(todo.tid).set(todo.toJson());
   static void deleteTodo(String tid) => todoCollection.doc(tid).delete();
 }

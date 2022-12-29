@@ -1,5 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:todolist/logineduser.dart';
 import 'package:todolist/menu.dart';
+
+import 'firebasecontroller.dart';
+import 'model/todoproject.dart';
 
 class ProgressIndicatorApp extends StatelessWidget {
   const ProgressIndicatorApp({super.key});
@@ -23,7 +28,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _ProgressIndicatorExampleState extends State<HomePage>
-  with TickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late AnimationController controller;
   bool determinate = false;
   List<bool> isChecked = [];
@@ -37,48 +42,22 @@ class _ProgressIndicatorExampleState extends State<HomePage>
     for (var i = 0; i < 3; i++) {
       isChecked.add(false);
       todayList.add(
-        Container(
-          child : Row (
-            children: <Widget>[
-              Checkbox(
-                value: isChecked[i],
-                onChanged: (bool? value) {
-                  setState(() {
-                     isChecked[i] = value!;
-                  });
-                },
-              ),
-               Text("일정 ${i+1}"),
-              IconButton (
-                icon: const Icon(
-                    Icons.arrow_drop_down_outlined,
-                    semanticLabel: 'detail',
-                ),
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      barrierDismissible: true,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text('오늘의 일정'),
-                          content: const Text('내용'),
-                          insetPadding: const EdgeInsets.fromLTRB(0, 80, 0, 80),
-                          actions: [
-                            TextButton(
-                                child: const Text('확인'),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                            )
-                          ],
-                        );
-                      }
-                  );
-                },
+          Container(
+              child : Row (
+                children: <Widget>[
+                  Checkbox(
+                    value: isChecked[i],
+                    onChanged: (bool? value) {
+                      setState(() {
+                        isChecked[i] = value!;
+                      });
+                    },
+                  ),
+                  Text("일정 ${i+1}"),
+
+                ],
               )
-            ],
           )
-        )
       );
     }
 
@@ -104,33 +83,6 @@ class _ProgressIndicatorExampleState extends State<HomePage>
                     },
                   ),
                   Text("일정 ${i+1}"),
-                  IconButton (
-                    icon: const Icon(
-                      Icons.arrow_drop_down_outlined,
-                      semanticLabel: 'detail',
-                    ),
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          barrierDismissible: true,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text('오늘의 일정'),
-                              content: const Text('내용'),
-                              insetPadding: const EdgeInsets.fromLTRB(0, 80, 0, 80),
-                              actions: [
-                                TextButton(
-                                  child: const Text('확인'),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                )
-                              ],
-                            );
-                          }
-                      );
-                    },
-                  )
                 ],
               )
           )
@@ -158,201 +110,201 @@ class _ProgressIndicatorExampleState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    return
-        Scaffold(
-          appBar: AppBar(
-            leading: IconButton(
-              icon: const Icon(
-                Icons.menu,
-                semanticLabel: 'menu',
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MenuPage()),
-                );
-              },
-            ),
-
-            title: const Icon(Icons.account_circle),
-
-            actions: <Widget> [
-              IconButton(
-                icon: const Icon(
-                  Icons.notifications,
-                  semanticLabel: 'notifications',
-                ),
-                onPressed: () {
-                  print('Notification Button');
-                },
-              ),
-            ],
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(
+            Icons.menu,
+            semanticLabel: 'menu',
           ),
+          onPressed: () {
+            LoginedUser.updateProjectList();
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MenuPage()),
+            );
+          },
+        ),
 
-          body: Container(
-            margin: const EdgeInsets.all(10.0),
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.all(5.0),
-                  padding: const EdgeInsets.all(15.0),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 1,
-                      color: Colors.black,
-                    ),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(15.0),
-                    ),
+        title: Text(LoginedUser.loginedUser.name),
+
+        actions: <Widget> [
+          IconButton(
+            icon: const Icon(
+              Icons.notifications,
+              semanticLabel: 'notifications',
+            ),
+            onPressed: () {
+              print('Notification Button');
+            },
+          ),
+        ],
+      ),
+
+      body: Container(
+        margin: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          children: <Widget>[
+            Container(
+              margin: const EdgeInsets.all(5.0),
+              padding: const EdgeInsets.all(15.0),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  width: 1,
+                  color: Colors.black,
+                ),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(15.0),
+                ),
+              ),
+              child: Column(
+                children: <Widget>[
+                  const Text(
+                    '나의 업무진척도',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  child: Column(
+                  const SizedBox(height: 30),
+                  LinearProgressIndicator(
+                    value: controller.value,
+                    semanticsLabel: '나의 업무진척도',
+                  ),
+                  const SizedBox(height: 10,),
+                  Row (
                     children: <Widget>[
-                      const Text(
-                        '나의 업무진척도',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      Expanded (
+                        child: Text(
+                          '프로그래스바 멈추기(임시)',
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
                       ),
-                      const SizedBox(height: 30),
-                      LinearProgressIndicator(
-                        value: controller.value,
-                        semanticsLabel: '나의 업무진척도',
-                      ),
-                      const SizedBox(height: 10,),
-                      Row (
-                        children: <Widget>[
-                          Expanded (
-                            child: Text(
-                              '프로그래스바 멈추기(임시)',
-                              style: Theme.of(context).textTheme.titleSmall,
-                            ),
-                          ),
-                          Switch(
-                              value: determinate,
-                              onChanged: (bool value) {
-                                setState(() {
-                                  determinate = value;
-                                  if(determinate) {
-                                    controller.stop();
-                                  }
-                                  else {
-                                    controller
-                                      ..forward(from: controller.value)
-                                      ..repeat();
-                                  }
-                                });
-                              })
-                        ],
-                      ),
-
+                      Switch(
+                          value: determinate,
+                          onChanged: (bool value) {
+                            setState(() {
+                              determinate = value;
+                              if(determinate) {
+                                controller.stop();
+                              }
+                              else {
+                                controller
+                                  ..forward(from: controller.value)
+                                  ..repeat();
+                              }
+                            });
+                          })
                     ],
                   ),
 
-                ),
-                Container(
-                  margin: const EdgeInsets.all(5.0),
-                  padding: const EdgeInsets.all(15.0),
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 1,
-                        color: Colors.black,
-                      ),
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(15.0)
-                      )
-                  ),
+                ],
+              ),
 
-                  child: Column(
+            ),
+            Container(
+              margin: const EdgeInsets.all(5.0),
+              padding: const EdgeInsets.all(15.0),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1,
+                    color: Colors.black,
+                  ),
+                  borderRadius: BorderRadius.all(
+                      Radius.circular(15.0)
+                  )
+              ),
+
+              child: Column(
+                children: <Widget>[
+                  Row(
                     children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.only(top: 15.0),
-                            decoration: BoxDecoration(
-                                border: Border(
-                                    bottom: BorderSide(
-                                      color: Colors.black,
-                                    )
+                      Container(
+                        margin: EdgeInsets.only(top: 15.0),
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                                  color: Colors.black,
                                 )
+                            )
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Text('Today',style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+                            SizedBox(width: 190,),
+                            IconButton(
+                              icon: const Icon(
+                                Icons.add,
+                                semanticLabel: 'add',
+                              ),
+                              onPressed: () {
+                                print(LoginedUser.loginedUser.projectList.length);
+                              },
                             ),
-                            child: Row(
-                              children: <Widget>[
-                                Text('Today',style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-                                SizedBox(width: 190,),
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.add,
-                                    semanticLabel: 'add',
-                                  ),
-                                  onPressed: () {
-                                    print('add button pressed');
-                                  },
-                                ),
-                              ],
+                          ],
 
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  Container(
+                    height: 200,
+                    child: ListView(
+                      padding: const EdgeInsets.all(8),
+                      children: _getTodayList(),
+                    ),
+                  ),
+
+                ],
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.all(5.0),
+              padding: const EdgeInsets.all(15.0),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1,
+                    color: Colors.black,
+                  ),
+                  borderRadius: BorderRadius.all(
+                      Radius.circular(15.0)
+                  )
+              ),
+
+              child: Column(
+                children: <Widget>[
+                  Row(
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(top: 15.0),
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                color: Colors.black,
+                              ),
                             ),
                           ),
-                        ],
-                      ),
-
-                      Container(
-                        height: 200,
-                        child: ListView(
-                          padding: const EdgeInsets.all(8),
-                          children: _getTodayList(),
+                          child: Row(
+                            children: [
+                              Text('중요일정',style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+                              SizedBox(width: 180,),
+                            ],
+                          ),
                         ),
-                      ),
-
-                    ],
+                      ]
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.all(5.0),
-                  padding: const EdgeInsets.all(15.0),
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 1,
-                        color: Colors.black,
-                      ),
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(15.0)
-                      )
+                  Container(
+                    height: 200,
+                    child: ListView(
+                      padding: const EdgeInsets.all(8),
+                      children: _getDailyList(),
+                    ),
                   ),
-
-                  child: Column(
-                    children: <Widget>[
-                      Row(
-                          children: <Widget>[
-                            Container(
-                              margin: EdgeInsets.only(top: 15.0),
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  bottom: BorderSide(
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
-                              child: Row(
-                                children: [
-                                  Text('중요일정',style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-                                  SizedBox(width: 180,),
-                                ],
-                              ),
-                            ),
-                          ]
-                      ),
-                      Container(
-                        height: 200,
-                        child: ListView(
-                          padding: const EdgeInsets.all(8),
-                          children: _getDailyList(),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

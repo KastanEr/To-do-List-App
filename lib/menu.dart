@@ -10,9 +10,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 Future<String?> showMyDialog(BuildContext context, [TodoProject? project]) async {
   TextEditingController controller = TextEditingController(
-    // if the TO-DO passed (edit),
-    // the title will be shown in the input field
-    // otherwise (add), not.
     text: project?.title ?? '',
   );
   String? resultText;
@@ -68,9 +65,13 @@ class _MenuPageState extends State<MenuPage> {
           String? inputText = await showMyDialog(context);
           if (inputText == null) return;
           TodoProject project = TodoProject(title: inputText);
-          var docref = await FirebaseController.addProject(project);
-          project.pid = docref.id;
+          var docRef = await FirebaseController.addProject(project);
+          project.pid = docRef.id;
           FirebaseController.updateProject(project);
+          LoginedUser.loginedUser.projectList.add(docRef.id);
+          FirebaseController.updateUser(LoginedUser.loginedUser);
+          LoginedUser.updateProjectList();
+          setState(() {});
         },
       ),
     );
@@ -129,7 +130,16 @@ Widget _builder(BuildContext context, AsyncSnapshot snapshot) {
     ),
   ];
 
+  for(int i = 0; i < LoginedUser.projectList.length; i++) {
+    listTiles.add(
+      ListTile(
+        title: Text(LoginedUser.projectList[i].title),
+      )
+    );
+  }
+ 
   return ListView(
     children: listTiles,
   );
 }
+

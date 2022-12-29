@@ -2,6 +2,8 @@ import 'dart:ui';
 import 'dart:math';
 import 'package:todolist/chart/ui_chart/pie_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:todolist/logineduser.dart';
+
 
 class PieChart extends CustomPainter {
   int percentage = 0;
@@ -9,6 +11,11 @@ class PieChart extends CustomPainter {
 
   PieChart({required this.percentage, required this.textScaleFactor});
 
+  int myAllTask = LoginedUser.loginedUser.numberOfTodo;
+  // 유저가 생성한 전체 업무
+
+  int myDoneTask = LoginedUser.loginedUser.numberOfDone;
+  // 유저가 완료한 업무
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -28,7 +35,7 @@ class PieChart extends CustomPainter {
     paint..color = Color(0xFF151F14); // 호를 그릴 때는 색을 바꿔줌.
     canvas.drawArc(Rect.fromCircle(center: center, radius: radius), -pi / 2, arcAngle, false, paint); // 호(arc)를 그림.
 
-    drawText(canvas, size, "$percentage / 100"); // 텍스트를 화면에 표시함.
+    drawText(canvas, size, "$percentage / $myAllTask"); // 텍스트를 화면에 표시함.
   }
 
   // 원의 중앙에 텍스트를 적음.
