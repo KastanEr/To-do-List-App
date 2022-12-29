@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todolist/menu.dart';
+import 'package:todolist/notification.dart';
 
 import 'logineduser.dart';
 
@@ -131,6 +132,7 @@ class _ProgressIndicatorExampleState extends State<HomePage>
               semanticLabel: 'notifications',
             ),
             onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationScreen()));
               print('Notification Button');
             },
           ),
