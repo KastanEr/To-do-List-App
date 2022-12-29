@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:todolist/home.dart';
-import 'package:todolist/menu.dart';
+//import 'package:todolist/menu.dart';
 
 import 'package:todolist/calender/util.dart';
 
@@ -88,7 +88,7 @@ class _CalendarPageState extends State<CalendarPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
+        /*leading: IconButton(
           icon: const Icon(
             Icons.menu,
             semanticLabel: 'menu',
@@ -99,7 +99,7 @@ class _CalendarPageState extends State<CalendarPage> {
               MaterialPageRoute(builder: (context) => const MenuPage()),
             );
           },
-        ),
+        ),*/
         title: Text('Calendar'),
 
         actions: <Widget> [

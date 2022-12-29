@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todolist/model/todoproject.dart';
+import 'package:todolist/project.dart';
 import 'package:todolist/running.dart';
 import 'package:todolist/upcomming.dart';
 import 'calender.dart';
@@ -134,10 +135,16 @@ Widget _builder(BuildContext context, AsyncSnapshot snapshot) {
     listTiles.add(
       ListTile(
         title: Text(LoginedUser.projectList[i].title),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ProjectPage(LoginedUser.projectList[i])),
+          );
+        },
       )
     );
   }
- 
+
   return ListView(
     children: listTiles,
   );
