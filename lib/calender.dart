@@ -88,7 +88,7 @@ class _CalendarPageState extends State<CalendarPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
+        /*leading: IconButton(
           icon: const Icon(
             Icons.menu,
             semanticLabel: 'menu',
@@ -99,7 +99,7 @@ class _CalendarPageState extends State<CalendarPage> {
               MaterialPageRoute(builder: (context) => const MenuPage()),
             );
           },
-        ),
+        ),*/
         title: Text('Calendar'),
 
         actions: <Widget> [
