@@ -259,9 +259,15 @@ class _ProjectPage extends State<ProjectPage> {
             ),
 
           ],
-        )
+        ),
 
-
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () async {
+            
+            setState(() {});
+          },
+        ),
     );
   }
 

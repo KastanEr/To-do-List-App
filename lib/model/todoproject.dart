@@ -1,5 +1,3 @@
-import 'todo.dart';
-
 class TodoProject {
   String? pid;
   late String title;
