@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:todolist/firebasecontroller.dart';
 import 'package:todolist/home.dart';
 import 'package:todolist/logineduser.dart';
+import 'package:todolist/model/todoproject.dart';
 import 'package:todolist/model/user.dart';
 
 class LoginPage extends StatefulWidget {
@@ -30,8 +31,10 @@ class _LoginPageState extends State<LoginPage> {
               ),
               TextButton(
                 onPressed: () async {
-                  var data = await FirebaseController.userCollection.doc('6mBEJtk9XrDJ1xF5ETcr').get();
-                  LoginedUser.loginedUser = User.fromJson(data.data() as Map<String, dynamic>);
+                  await FirebaseController.userCollection.doc('6mBEJtk9XrDJ1xF5ETcr').snapshots().listen(
+                    (event) => LoginedUser.loginedUser = User.fromJson(event.data()),
+                    onError: (error) => print("$error"),
+                  );
                   Navigator.pop(
                     context,
                     MaterialPageRoute(builder: (context) => const HomePage()),

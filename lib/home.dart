@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:todolist/logineduser.dart';
 import 'package:todolist/menu.dart';
+
+import 'firebasecontroller.dart';
+import 'model/todoproject.dart';
 
 class ProgressIndicatorApp extends StatelessWidget {
   const ProgressIndicatorApp({super.key});
@@ -114,6 +118,7 @@ class _ProgressIndicatorExampleState extends State<HomePage>
             semanticLabel: 'menu',
           ),
           onPressed: () {
+            LoginedUser.updateProjectList();
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const MenuPage()),
@@ -231,7 +236,7 @@ class _ProgressIndicatorExampleState extends State<HomePage>
                                 semanticLabel: 'add',
                               ),
                               onPressed: () {
-                                print(LoginedUser.loginedUser.name);
+                                print(LoginedUser.loginedUser.projectList.length);
                               },
                             ),
                           ],

@@ -18,8 +18,8 @@ class FirebaseController {
   /// static methods
   // firebase query methods (add, update & delete)
   static Future<DocumentReference> addUser(User user) => userCollection.add(user.toJson());
-  static Future<DocumentReference> updateUser(User user) => userCollection.doc(user.uid).set(user.toJson());
-  static Future<DocumentReference> deleteUser(String uid) => userCollection.doc(uid).delete();
+  static void updateUser(User user) => userCollection.doc(user.uid).set(user.toJson());
+  static void deleteUser(String uid) => userCollection.doc(uid).delete();
 
   /* Project */
   /// static accessors
@@ -31,8 +31,8 @@ class FirebaseController {
   /// static methods
   // firebase query methods (add, update & delete)
   static Future<DocumentReference> addProject(TodoProject project) => projectCollection.add(project.toJson());
-  static Future<DocumentReference> updateProject(TodoProject project) => projectCollection.doc(project.pid).set(project.toJson());
-  static Future<DocumentReference> deleteProject(String pid) => projectCollection.doc(pid).delete();
+  static void updateProject(TodoProject project) => projectCollection.doc(project.pid).set(project.toJson());
+  static void deleteProject(String pid) => projectCollection.doc(pid).delete();
 
   /* Todo */
   /// static accessors
@@ -44,6 +44,6 @@ class FirebaseController {
   /// static methods
   // firebase query methods (add, update & delete)
   static Future<DocumentReference> addTodo(Todo todo) => todoCollection.add(todo.toJson());
-  static Future<DocumentReference> updateTodo(Todo todo) => todoCollection.doc(todo.tid).set(todo.toJson());
-  static Future<DocumentReference> deleteTodo(String tid) => todoCollection.doc(tid).delete();
+  static void updateTodo(Todo todo) => todoCollection.doc(todo.tid).set(todo.toJson());
+  static void deleteTodo(String tid) => todoCollection.doc(tid).delete();
 }
