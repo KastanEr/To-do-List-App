@@ -138,7 +138,7 @@ Widget _builder(BuildContext context, AsyncSnapshot snapshot) {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ProjectPage()),
+            MaterialPageRoute(builder: (context) => ProjectPage('dsaf')),
           );
         },
       )
