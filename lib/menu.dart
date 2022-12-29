@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todolist/model/todoproject.dart';
+import 'package:todolist/project.dart';
 import 'package:todolist/running.dart';
 import 'package:todolist/upcomming.dart';
 import 'calender.dart';
@@ -58,7 +59,7 @@ class _MenuPageState extends State<MenuPage> {
         future: FirebaseController.projectGet,
         builder: _builder,
       ),
-      
+
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () async {
@@ -115,6 +116,7 @@ Widget _builder(BuildContext context, AsyncSnapshot snapshot) {
       leading: const Icon(Icons.calendar_month, color: Colors.red,),
       title: const Text('캘린더'),
       onTap: () {
+        LoginedUser.updateProjectList();
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => CalendarPage()),
@@ -134,10 +136,16 @@ Widget _builder(BuildContext context, AsyncSnapshot snapshot) {
     listTiles.add(
       ListTile(
         title: Text(LoginedUser.projectList[i].title),
+        onTap: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ProjectPage(LoginedUser.projectList[i].title)),
+          );
+        },
       )
     );
   }
- 
+
   return ListView(
     children: listTiles,
   );

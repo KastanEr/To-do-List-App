@@ -3,6 +3,7 @@ import 'package:todolist/home.dart';
 import 'package:todolist/menu.dart';
 import 'chart/ui_chart/bar_chart.dart';
 import 'chart/ui_chart/pie_chart.dart';
+import 'logineduser.dart';
 
 class runningPage extends StatelessWidget {
 
@@ -21,7 +22,11 @@ class runningPage extends StatelessWidget {
     "Challenger",
   ];
 
-  int num = 60;
+  int myAllTask = LoginedUser.loginedUser.numberOfTodo;
+  // 유저가 생성한 전체 업무
+
+  int myDoneTask = LoginedUser.loginedUser.numberOfDone;
+  // 유저가 완료한 업무
 
   @override
   Widget build(BuildContext context) {
@@ -64,11 +69,11 @@ class runningPage extends StatelessWidget {
               SizedBox(width: 25.0,),
               CustomPaint(
                 size: Size(150, 150),
-                painter: PieChart(percentage: num, // 임의의 값
+                painter: PieChart(percentage: myDoneTask, // 임의의 값
                     textScaleFactor: 1.0),
               ),
               SizedBox(width: 25.0,),
-              Text(" 생성한 일 : data \n 완료한 일 : $num ",style: TextStyle(fontSize: 20),)
+              Text(" 완료한 일 : $myDoneTask \n 생성한 일 : $myAllTask",style: TextStyle(fontSize: 20),)
             ],
           ),
           SizedBox(height: 70.0,),

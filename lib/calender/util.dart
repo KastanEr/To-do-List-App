@@ -3,16 +3,20 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:todolist/logineduser.dart';
+
+import '../model/todoproject.dart';
 
 /// Example event class.
 class Event {
-  final String title;
+  String title;
 
-  const Event(this.title);
+  Event(this.title);
 
   @override
   String toString() => title;
 }
+
 
 
 /// Example events.
@@ -25,30 +29,38 @@ final kEvents = LinkedHashMap<DateTime, List<Event>>(
 
 
 
-List<Event> eventdetail = [Event('플러터'),Event('크리스마스'),];
+List<Event> eventdetail = [Event('플러터'),Event('asd'),];
 List<DateTime> kEventday = [DateTime(2022, 12, 23),DateTime(2022, 12, 25)];
 
+List<Map<DateTime,List<Event>>> addEventday(){
+  List<Map<DateTime,List<Event>>> asd=[];
+  for (int i=0; i<kEventday.length; i++){
+    asd.add(
+        {
+          kEventday[i]: [
+            Event('플러터1'),
+            Event('asd2'),
+
+          ]
+        }
+    );
+  }
+  return asd;
+}
 
 
-
-final _kEventSource = Map.fromIterable(
+var _kEventSource = Map.fromIterable(
     List.generate(eventdetail.length, (index) => index), //3은 전체 일정있는 날, index는 해당날짜의 todo 번호
     key: (item) => kEventday[0], //날짜
-    value: (item) => eventdetail)
+    value: (item) => eventdetail);
+
+
 //일정리스트
-  ..addAll({
-
-    kEventday[1]:[
-      Event('asd'),
-    ],
-
-    kToday: [
-      Event('오늘의 일정 1'),
-      Event('오늘의 일정 2'),
 
 
-    ],
-  });
+
+
+
 
 int getHashCode(DateTime key) {
   return key.day * 1000000 + key.month * 10000 + key.year;
