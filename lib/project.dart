@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:todolist/model/todoproject.dart';
 
 import 'home.dart';
 import 'menu.dart';
 
 class ProjectPage extends StatefulWidget {
-  final String projectname;
+  final TodoProject project;
 
   // const ProjectPage(String title, {Key? key}) : super(key: key);
-  const ProjectPage(this.projectname); //화면전환하면서 프로젝트 이름 데이터를 가져옴
+  const ProjectPage(this.project); //화면전환하면서 프로젝트 이름 데이터를 가져옴
 
   @override
   _ProjectPage createState() => _ProjectPage();
@@ -27,35 +28,34 @@ class _ProjectPage extends State<ProjectPage> {
     for (var i=0; i<3; i++){
       taskviewCheck.add(false);
       TaskList.add(
-          Container(
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Text('Task',style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-                    IconButton(onPressed: (){
-                      setState(() {
-                        taskviewCheck[i] = !taskviewCheck[i];
-                      });
+        Container(
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Text('Task',style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+                  IconButton(onPressed: (){
+                    setState(() {
+                      taskviewCheck[i] = !taskviewCheck[i];
+                    });
 
-                    }, icon: Icon(Icons.arrow_drop_down)),
+                  }, icon: Icon(Icons.arrow_drop_down)),
 
-                  ],
-                ),
-                Visibility(
-                  visible: taskviewCheck[i],
-                  child: Container(
-                    height: 200,
-                    child: ListView(
-                      padding: const EdgeInsets.all(8),
-                      children: _getStepList(),
-                    ),
+                ],
+              ),
+              Visibility(
+                visible: taskviewCheck[i],
+                child: Container(
+                  height: 200,
+                  child: ListView(
+                    padding: const EdgeInsets.all(8),
+                    children: _getStepList(),
                   ),
                 ),
-              ],
-            ),
-          )
-
+              ),
+            ],
+          ),
+        )
       );
     }
 
@@ -144,7 +144,7 @@ class _ProjectPage extends State<ProjectPage> {
         ),
 
 
-        body: Column(
+        body: ListView(
           children: [
             Container(
               margin: EdgeInsets.only(left:20.0,top: 15.0,right:20.0),
@@ -159,7 +159,7 @@ class _ProjectPage extends State<ProjectPage> {
 
               child : Row(
                   children: [
-                    Text("${widget.projectname}", //가져온 프로젝트 데이터 이름으로 타이틀 설정
+                    Text("${widget.project.title}", //가져온 프로젝트 데이터 이름으로 타이틀 설정
                       style: TextStyle(fontSize: 30,
                         fontWeight: FontWeight.bold,
                       ),),
@@ -215,20 +215,20 @@ class _ProjectPage extends State<ProjectPage> {
                           child: Column(
                             children: [
                               Container(
-                                  margin: EdgeInsets.only(top: 15.0),
-                                  // decoration: BoxDecoration(
-                                  //     border: Border(
-                                  //         bottom: BorderSide(
-                                  //           color: Colors.black,
-                                  //         )
-                                  //
-                                  //     )
-                                  // ),
-                                  child: Column(
-                                      children: _getTaskList()
+                                margin: EdgeInsets.only(top: 15.0),
+                                // decoration: BoxDecoration(
+                                //     border: Border(
+                                //         bottom: BorderSide(
+                                //           color: Colors.black,
+                                //         )
+                                //
+                                //     )
+                                // ),
+                                child: Column(
+                                  children: _getTaskList()
 
 
-                                  )
+                                )
                               ),
 
 
@@ -259,9 +259,15 @@ class _ProjectPage extends State<ProjectPage> {
             ),
 
           ],
-        )
+        ),
 
-
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () async {
+            
+            setState(() {});
+          },
+        ),
     );
   }
 

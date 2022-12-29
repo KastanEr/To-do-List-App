@@ -8,6 +8,10 @@ import 'firebasecontroller.dart';
 import 'dart:async';
 import 'package:todolist/model/todoproject.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'logineduser.dart';
+
+class ProgressIndicatorApp extends StatelessWidget {
+  const ProgressIndicatorApp({super.key});
 
 
 class HomePage extends StatefulWidget {
@@ -128,6 +132,66 @@ class _ProgressIndicatorExampleState extends State<HomePage>
 
     super.setState(fn);
   }
+class MyEventList extends StatelessWidget{
+  List<String> tasks = ['개인과제','프로젝트','플러터','개인과제','프로젝트','플러터'];
+  Widget build(BuildContext context){
+    return ListView.builder(
+        padding: const EdgeInsets.all(16.0),
+        itemCount: tasks.length,
+        itemBuilder: (BuildContext ctx, int idx) {
+          return ListTile(
+            leading : Checkbox(
+              value: false,
+              onChanged: (bool? value) {
+                value = value!;
+              },
+            ),
+            title: Text("${tasks[idx]}"),
+            trailing: IconButton(
+              onPressed: () {
+
+              },
+              icon: Icon(Icons.star_border),
+
+            ),
+
+          );
+        }
+    );
+  }
+
+}
+
+class MyimportantList extends StatelessWidget{
+  List<String> tasks = ['직','무','유','기'];
+  Widget build(BuildContext context){
+    return ListView.builder(
+        padding: const EdgeInsets.all(16.0),
+        itemCount: tasks.length,
+        itemBuilder: (BuildContext ctx, int idx) {
+          return ListTile(
+              leading : Checkbox(
+                value: false,
+                onChanged: (bool? value) {
+                  value = value!;
+                },
+              ),
+              title: Text("${tasks[idx]}"),
+              trailing: Text("d-7")
+
+          );
+        }
+    );
+  }
+
+}
+
+class _ProgressIndicatorExampleState extends State<HomePage>
+    with TickerProviderStateMixin {
+  late AnimationController controller;
+  bool determinate = false;
+  List<bool> isChecked = [];
+  List<bool> Checked = [];
 
   late AnimationController controller;
   bool determinate = false;
@@ -183,6 +247,7 @@ class _ProgressIndicatorExampleState extends State<HomePage>
         ],
       ),
 
+
       body: Container(
         margin: const EdgeInsets.all(10.0),
         padding: const EdgeInsets.all(10.0),
@@ -234,6 +299,7 @@ class _ProgressIndicatorExampleState extends State<HomePage>
                     )
                 ),
 
+
                 child: Column(
                     children:[
                       Text("Today",
@@ -277,6 +343,7 @@ class _ProgressIndicatorExampleState extends State<HomePage>
           ],
         ),
       ),
+
     );
   }
 }
