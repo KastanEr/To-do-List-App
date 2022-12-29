@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 import 'dart:collection';
 
+
+
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -26,20 +28,20 @@ final kEvents = LinkedHashMap<DateTime, List<Event>>(
 
 
 
+List<Event> eventdetail = [Event('플러터'),Event('크리스마스'),];
+List<DateTime> kEventday = [DateTime(2022, 12, 23),DateTime(2022, 12, 25)];
+
+
+
+
 final _kEventSource = Map.fromIterable(
-    List.generate(0, (index) => index), //3은 전체 일정있는 날, index는 해당날짜의 todo 번호
-    key: (item) => DateTime.utc(2022, 12, item), //날짜
-    value: (item) => List.generate(
-        item+1, (index) => Event('일정${index + 1}')))
-//4는 특정날짜를 클릭했을 때 나오는 todo의 수   그 뒤는 todo의 내용
+    List.generate(eventdetail.length, (index) => index), //3은 전체 일정있는 날, index는 해당날짜의 todo 번호
+    key: (item) => kEventday[0], //날짜
+    value: (item) => eventdetail)
+//일정리스트
   ..addAll({
 
-    kEventday[0]: [
-      Event('개인과제'),
-    ],
-    kEventday[1]:[
-      Event('크리스마스'),
-    ],
+
     kToday: [
       Event('오늘의 일정 1'),
       Event('오늘의 일정 2'),
@@ -62,6 +64,6 @@ List<DateTime> daysInRange(DateTime first, DateTime last) {
 }
 
 final kToday = DateTime.now();
-List<DateTime> kEventday = [DateTime(2022, 12, 23),DateTime(2022, 12, 25)];
+
 final kFirstDay = DateTime(kToday.year, kToday.month - 6, kToday.day);
 final kLastDay = DateTime(kToday.year, kToday.month + 6, kToday.day);

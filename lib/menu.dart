@@ -74,16 +74,16 @@ class _MenuPageState extends State<MenuPage> {
     ];
     List<TodoProject> projectList = LoginedUser.loginedUser.projectList;
     for(int i = 0; i < projectList.length; i++) {
-      String asd;
+      String projectname;
       listTiles.add(ListTile(
         title: Text(projectList[i].title),
         onTap: () {
           print('프로젝트');
-          asd = projectList[i].title;
+          projectname = projectList[i].title;
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ProjectPage(asd)
+                builder: (context) => ProjectPage(projectname)
             ),
           );
         }
@@ -95,6 +95,7 @@ class _MenuPageState extends State<MenuPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
@@ -106,6 +107,7 @@ class _MenuPageState extends State<MenuPage> {
           children: _getProjectList(),
         ),
       ),
+
 
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
