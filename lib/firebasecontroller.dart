@@ -30,7 +30,7 @@ class FirebaseController {
 
   /// static methods
   // firebase query methods (add, update & delete)
-  static void addProject(TodoProject project) => projectCollection.add(project.toJson());
+  static Future<DocumentReference> addProject(TodoProject project) => projectCollection.add(project.toJson());
   static void updateProject(TodoProject project) => projectCollection.doc(project.pid).set(project.toJson());
   static void deleteProject(String pid) => projectCollection.doc(pid).delete();
 

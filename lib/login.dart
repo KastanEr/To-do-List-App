@@ -16,9 +16,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<QuerySnapshot> (
-        future: FirebaseController.userGet,
-        builder: (BuildContext context, AsyncSnapshot snapshot) => SafeArea(
+      body: StreamBuilder<QuerySnapshot> (
+        stream: FirebaseController.userSnapshots,
+        builder: (context, AsyncSnapshot snapshot) => SafeArea(
           child: Row(
             children: <Widget>[
               TextButton(

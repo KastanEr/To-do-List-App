@@ -1,5 +1,4 @@
 import 'todoproject.dart';
-import 'todonotification.dart';
 
 class User {
   String? uid;
@@ -21,8 +20,8 @@ class User {
     this.numberOfTodo = 0,
   }) {
     defaultProject = TodoProject(title: 'default');
-    projectList = <String>['fdsafdsa', 'fsafdsafds'];
-    notificationList = <String>['fdsafdsaf'];
+    projectList = <String>[];
+    notificationList = <String>[];
   }
 
   User.fromJson(Map<String, dynamic> json) {
@@ -48,7 +47,7 @@ class User {
     'password': password,
     'defaultProject': defaultProject.toJson(),
     'projectList': projectList,
-    'notificationList': notificationList[0],
+    'notificationList': notificationList,
     'numberOfTodo': numberOfTodo,
     'numberOfDone': numberOfDone,
   };

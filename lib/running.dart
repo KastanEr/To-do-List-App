@@ -33,10 +33,7 @@ class runningPage extends StatelessWidget {
             semanticLabel: 'arrow_back_ios',
           ),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const MenuPage()),
-            );
+            Navigator.pop(context);
           },
         ),
 
