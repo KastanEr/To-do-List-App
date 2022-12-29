@@ -122,7 +122,7 @@ class _ProgressIndicatorExampleState extends State<HomePage>
           },
         ),
 
-        title: const Icon(Icons.account_circle),
+        title: Text(LoginedUser.loginedUser.name),
 
         actions: <Widget> [
           IconButton(
