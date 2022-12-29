@@ -30,7 +30,7 @@ final kEvents = LinkedHashMap<DateTime, List<Event>>(
 
 
 List<Event> eventdetail = [Event('플러터'),Event('asd'),];
-List<DateTime> kEventday = [DateTime(2022, 12, 23),DateTime(2022, 12, 25)];
+
 
 List<Map<DateTime,List<Event>>> addEventday(){
   List<Map<DateTime,List<Event>>> asd=[];
@@ -49,10 +49,35 @@ List<Map<DateTime,List<Event>>> addEventday(){
 }
 
 
+List<DateTime> kEventday = [DateTime(2022, 12, 23),DateTime(2022, 12, 25)];
+
 var _kEventSource = Map.fromIterable(
     List.generate(eventdetail.length, (index) => index), //3은 전체 일정있는 날, index는 해당날짜의 todo 번호
     key: (item) => kEventday[0], //날짜
-    value: (item) => eventdetail);
+    value: (item) => eventdetail)
+..addAll({
+
+  // for(int i=0; i<3; i++){
+  //   kEventday[i]:[
+  //     Event('asd'),
+  //     Event('qwe'),
+  //     Event('asd'),
+  //     Event('qwe'),Event('asd'),
+  //     Event('qwe'),
+  //   ]
+  // },
+  // kEventday[0] : [
+  //   Event('asd'),
+  //   Event('qwe'),
+  //   Event('asd'),
+  //   Event('qwe'),Event('asd'),
+  //   Event('qwe'),
+  // ],
+  // kEventday[1] : [
+  //   Event('wer'),
+  //   Event('zxc'),
+  // ]
+});
 
 
 //일정리스트

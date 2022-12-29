@@ -33,20 +33,29 @@ class _UpcommingPage extends State<UpcommingPage> {
 
 
 
+
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
         title: const Text('예정'),
       ),
 
+
+
       body: DayView(
 
         controller: EventController(),
         eventTileBuilder: (date, events, boundry, start, end) {
           // Return your widget to display as event tile.
-          return Container();
+          return Container(
+            color: Colors.lightBlue,
+            height: 50,
+            child: Text('$date'),
+          );
         },
         showVerticalLine: true, // To display live time line in day view.
         showLiveTimeLineInAllDays: true, // To display live time line in all pages in day view.

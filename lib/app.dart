@@ -4,6 +4,7 @@ import 'package:todolist/upcomming.dart';
 
 import 'home.dart';
 import 'login.dart';
+import 'notification.dart';
 
 class TodoApp extends StatelessWidget {
   const TodoApp({Key? key}) : super(key: key);
@@ -19,6 +20,7 @@ class TodoApp extends StatelessWidget {
         '/menu': (BuildContext context) => const MenuPage(),
         '/upcomming': (BuildContext context) => const UpcommingPage(),
         '/login': (BuildContext context) => const LoginPage(),
+        '/notification': (BuildContext context) => const NotificationScreen(),
       },
     );
   }

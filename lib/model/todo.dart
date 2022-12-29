@@ -4,8 +4,8 @@ class Todo {
   String? tid;
   late String title;
   late String description;
-  Timestamp? deadLine;
-  Timestamp? finalDeadLine; 
+  DateTime? deadLine;
+  // DateTime? finalDeadLine;
   late bool done;
   late bool important;
 
@@ -14,7 +14,7 @@ class Todo {
     String? title,
     String? description,
     this.deadLine,
-    this.finalDeadLine,
+    //this.finalDeadLine,
     this.done = false,
     this.important = false,
   }) : title = title ?? '제목 없음', description = description ?? '';
@@ -26,8 +26,8 @@ class Todo {
   void fromJson(Map<String, dynamic> json) {
     title = json['title'];
     description = json['description'];
-    deadLine = json['deadLine'];
-    finalDeadLine = json['finalDeadLine'];
+    deadLine = json['deadline'];
+    //finalDeadLine = json['finalDeadLine'];
     done = json['done'];
     important = json['important'];
   }
@@ -35,8 +35,8 @@ class Todo {
   Map<String, dynamic> toJson() => {
     'title': title,
     'description': description,
-    'deadLine': deadLine,
-    'finalDeadLine': finalDeadLine,
+    'deadline': deadLine,
+    //'finalDeadLine': finalDeadLine,
     'done': done,
     'important': important,
   };
