@@ -4,7 +4,6 @@ import 'package:todolist/chart/ui_chart/pie_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:todolist/logineduser.dart';
 
-
 class PieChart extends CustomPainter {
   int percentage = 0;
   double textScaleFactor = 1.0;
@@ -16,6 +15,7 @@ class PieChart extends CustomPainter {
 
   int myDoneTask = LoginedUser.loginedUser.numberOfDone;
   // 유저가 완료한 업무
+
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -30,7 +30,7 @@ class PieChart extends CustomPainter {
 
     canvas.drawCircle(center, radius, paint); // 원을 그림.
 
-    double arcAngle = 2 * pi * (percentage / 100); // 호(arc)의 각도를 정함. 정해진 각도만큼만 그리도록 함.
+    double arcAngle = 2 * pi * (percentage / myAllTask ); // 호(arc)의 각도를 정함. 정해진 각도만큼만 그리도록 함.
 
     paint..color = Color(0xFF151F14); // 호를 그릴 때는 색을 바꿔줌.
     canvas.drawArc(Rect.fromCircle(center: center, radius: radius), -pi / 2, arcAngle, false, paint); // 호(arc)를 그림.

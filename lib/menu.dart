@@ -7,6 +7,7 @@ import 'logineduser.dart';
 import 'firebasecontroller.dart';
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:todolist/project.dart';
 
 Future<String?> showMyDialog(BuildContext context, [TodoProject? project]) async {
   TextEditingController controller = TextEditingController(
@@ -134,6 +135,12 @@ Widget _builder(BuildContext context, AsyncSnapshot snapshot) {
     listTiles.add(
       ListTile(
         title: Text(LoginedUser.projectList[i].title),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ProjectPage(LoginedUser.projectList[i].title)),
+          );
+        },
       )
     );
   }
