@@ -28,16 +28,23 @@ class _CalendarPage extends State<CalendarPage> {
 // }
 
 
+
+
   Map<DateTime, List<CleanCalendarEvent>> _events = {
     eventdate[0] : [
      CleanCalendarEvent(eventname[0],
-     startTime: DateTime.now(),
-     endTime: DateTime.now(),)
+     startTime: DateTime(2022,12,30,10,0),
+     endTime: DateTime(2022,12,30,12,0),)
      ],
+    eventdate[0] : [
+      CleanCalendarEvent(eventname[0],
+        startTime: DateTime(2022,12,30,10,0),
+        endTime: DateTime(2022,12,30,12,0),)
+    ],
     eventdate[1] : [
       CleanCalendarEvent(eventname[1],
-        startTime: DateTime.now(),
-        endTime: DateTime.now(),)
+        startTime: DateTime(2022,12,30,10,0),
+        endTime: DateTime(2022,12,30,12,0),)
     ]
   };
 
@@ -52,6 +59,10 @@ class _CalendarPage extends State<CalendarPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+        title: const Text('캘린더'),
+      ),
       body: Calendar(
           startOnMonday: true,
           weekDays: ['월', '화', '수', '목', '금', '토', '일'],
