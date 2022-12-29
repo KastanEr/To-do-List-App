@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:todolist/model/todoproject.dart';
 
@@ -55,7 +56,6 @@ class _ProjectPage extends State<ProjectPage> {
             ],
           ),
         )
-
       );
     }
 
