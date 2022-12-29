@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
               TextButton(
                 onPressed: () async {
                   var data = await FirebaseController.userCollection.doc('6mBEJtk9XrDJ1xF5ETcr').get();
-                  LoginedUser.loginedUser = User.fromJson(data.data());
+                  LoginedUser.loginedUser = User.fromJson(data.data() as Map<String, dynamic>);
                   Navigator.pop(
                     context,
                     MaterialPageRoute(builder: (context) => const HomePage()),

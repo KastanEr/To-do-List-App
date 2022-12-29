@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/logineduser.dart';
 import 'package:todolist/menu.dart';
 
 class ProgressIndicatorApp extends StatelessWidget {
@@ -120,7 +121,7 @@ class _ProgressIndicatorExampleState extends State<HomePage>
           },
         ),
 
-        title: const Icon(Icons.account_circle),
+        title: Text(LoginedUser.loginedUser.name),
 
         actions: <Widget> [
           IconButton(
@@ -230,7 +231,7 @@ class _ProgressIndicatorExampleState extends State<HomePage>
                                 semanticLabel: 'add',
                               ),
                               onPressed: () {
-                                print('add button pressed');
+                                print(LoginedUser.loginedUser.name);
                               },
                             ),
                           ],
