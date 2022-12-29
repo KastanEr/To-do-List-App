@@ -74,7 +74,8 @@ class runningPage extends StatelessWidget {
                           textScaleFactor: 1.0),
                     ),
                     SizedBox(width: 25.0,),
-                    Text(" 생성한 일 : $myDoneTask \n 완료한 일 : $myDoneTask ",style: TextStyle(fontSize: 20),)
+                    Text(" 생성한 일 : $myAllTask \n 완료한 일 : $myDoneTask ",style: TextStyle(fontSize: 20),)
+
                   ],
                 ),
                 SizedBox(height: 70.0,),
