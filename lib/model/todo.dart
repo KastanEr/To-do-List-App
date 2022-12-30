@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Todo {
   String? tid;
   late String title;
@@ -25,7 +27,7 @@ class Todo {
     tid = json['tid'];
     title = json['title'];
     description = json['description'];
-    // deadLine = DateTime.parse(json['deadLine']);
+    deadLine = json['deadline'].toDate();
     // finalDeadLine = DateTime.parse(json['finalDeadLine']);
     done = json['done'];
     important = json['important'];
@@ -35,7 +37,7 @@ class Todo {
     'tid': tid,
     'title': title,
     'description': description,
-    // 'deadLine': deadLine,
+    'deadline': deadLine,
     // 'finalDeadLine': finalDeadLine,
     'done': done,
     'important': important,
