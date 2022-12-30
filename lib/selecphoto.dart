@@ -7,7 +7,8 @@ class SelectPhoto extends StatelessWidget {
 
   final void Function()? onTap;
 
-  const SelectPhoto({
+
+  SelectPhoto({
     Key? key,
     required this.textLabel,
     required this.icon,
@@ -55,6 +56,8 @@ class SelectPhoto extends StatelessWidget {
 
 class SelectPhotoOptionsScreen extends StatelessWidget {
   final Function(ImageSource source) onTap;
+  //final ImagePicker _picker = ImagePicker();
+  //late PickedFile _image;
 
   SelectPhotoOptionsScreen({
     Key? key,
@@ -71,10 +74,10 @@ class SelectPhotoOptionsScreen extends StatelessWidget {
           clipBehavior: Clip.none,
           children: [
             Positioned(
-              top: -35,
+              top: -25,
               child: Container(
                 width: 50,
-                height: 6,
+                height: 5,
                 margin: const EdgeInsets.only(bottom: 20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(2.5),
@@ -83,21 +86,29 @@ class SelectPhotoOptionsScreen extends StatelessWidget {
               ),
             ),
 
-
             const SizedBox(
-              height: 10,
+              height: 40,
             ),
             Column(
                 children: [
                   SelectPhoto(
-                    onTap: () => onTap(ImageSource.gallery),
-                    icon: Icons.image,
+                    onTap: () {},
+                    icon: Icons.account_circle,
                     textLabel: '기본 이미지',
                   ),
-                ]
-            ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SelectPhoto(
+                    onTap: () => onTap(ImageSource.gallery),
+                    icon: Icons.image_search,
+                    textLabel: '갤러리',
+                  ),
+
           ]
       ),
+      ]
+    ),
     );
   }
 }

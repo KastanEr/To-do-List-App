@@ -2,7 +2,7 @@ import 'project.dart';
 import 'notification.dart';
 
 class User {
-  late String _uid; 
+  late String _uid;
   late String _name;
   late String _email;
   late String _password;

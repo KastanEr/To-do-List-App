@@ -1,10 +1,15 @@
+//import 'dart:js';
+//import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+//import '../today.dart';
 import 'todo.dart';
+
 
 class Today {
   int numberOfTodo = 0;
   late int date;
   List<dynamic> content = <dynamic>[];
+  int _count = 0;
 
   Today({
     required int date,

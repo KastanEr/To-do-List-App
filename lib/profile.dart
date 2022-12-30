@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:todolist/selecphoto.dart';
-import 'model/user.dart';
 
 
 class Profile extends StatefulWidget {
@@ -17,24 +16,32 @@ class Profile extends StatefulWidget {
   _ProfileState createState() => _ProfileState();
 }
 
+class ProfileImage extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
+}
+
 class _ProfileState extends State<Profile> {
   final nameController = TextEditingController();
   final positionCotroller = TextEditingController();
-  File? _image;
+  Image _image = Image.asset('3D_avatar/user.png');
+  final ImagePicker _picker = ImagePicker();
 
-  Future _pickImage(ImageSource source) async {
-    try {
-      final image = await ImagePicker().pickImage(source: source);
-      if (image == null) return;
-      File? img = File(image.path);
-      setState(() {
-        _image = img;
-        Navigator.of(context).pop();
-      });
-    }
-    on PlatformException catch (e) {
-      print(e);
-      Navigator.of(context).pop();
+
+  Future _getImage() async {
+    final pickedImage = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      _image = Image.file(
+        File(pickedImage.path),
+        width: 200.0,
+        height: 200.0,
+        fit: BoxFit.fill,
+      );
+      setState(() {});
     }
   }
 
@@ -61,8 +68,12 @@ class _ProfileState extends State<Profile> {
           builder: (context, scrollController) {
             return SingleChildScrollView(
               controller: scrollController,
-              child: SelectPhotoOptionsScreen(
-                onTap: _pickImage,
+               child: SelectPhotoOptionsScreen(
+                 onTap: (source) async {
+                   await _getImage();
+                   Navigator.pop(context);
+                   // setState(() {});
+                 },
               ),
             );
           }),
@@ -122,6 +133,15 @@ class _ProfileState extends State<Profile> {
     );
   }
 
+  late File _pickedImage = File('3D_avatar/user.png');
+
+  void _pickImage() async {
+    var imagePicker = ImagePicker();
+    var pickedImageFile = await imagePicker.pickImage(source: ImageSource.camera);
+    setState(() {
+      _pickedImage = pickedImageFile as File;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -141,21 +161,28 @@ class _ProfileState extends State<Profile> {
           Container(
             child: Column(
               children: <Widget>[
-                const Padding(padding: EdgeInsets.only(top: 16, bottom: 8),
-                  child: CircleAvatar(
-                    radius: 80.0,
-                    //backgroundImage: FileImage(_image!),
-                    //backgroundImage: _image!= null ? FileImage(_image!) : null,
-                  ),
+                // child: CircleAvatar(
+                //   radius: 80.0,
+                //   //backgroundImage: FileImage(_pickedImage),
+                //   backgroundColor: Colors.grey,
+                //   backgroundImage: _image,
+                // ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 40, left: 50, right: 50, bottom: 20),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(300.0),
+                      child: _image,
+                    ),
                 ),
-                FloatingActionButton(
-                    backgroundColor: Colors.grey,
+                TextButton.icon(
                     onPressed: () {
                       _showSelectPhotoOptions(context);
                     },
-                    child: const Icon(Icons.edit)
+                    label: Text('이미지 변경'),
+                    icon: Icon(Icons.edit, color: Colors.grey,size: 20,),
+
                 ),
-                Padding(padding: const EdgeInsets.all(16),
+                Padding(padding: const EdgeInsets.all(10),
                 child: Column(
                   children: <Widget>[
                     buildName(),
@@ -164,7 +191,7 @@ class _ProfileState extends State<Profile> {
                 ),),
                 TextButton(onPressed: () => print('프로필 업데이트'),
                     child: Text(
-                      "변경하기",
+                      "프로필 수정",
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontSize: 20,
@@ -181,7 +208,7 @@ class _ProfileState extends State<Profile> {
                         style: TextStyle(
                           color: Colors.blue,
                           decoration: TextDecoration.underline,
-                          fontSize: 20,
+                          fontSize: 16,
                         ),
                       )),
                 ),
@@ -192,24 +219,18 @@ class _ProfileState extends State<Profile> {
       ),
     );
   }
+  // @override
+  // void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  //   super.debugFillProperties(properties);
+  //   properties.add(DiagnosticsProperty<PickedFile>('_image', _image));
+  // }
 }
-
-  // on PlatformExeption catch (e) {
-  //   print(e);
-  //   Navigator.of(context).pop();}
-
 
   InputDecoration decoration(String label) =>
       InputDecoration(
         labelText: label,
         border: const OutlineInputBorder(),
       );
-
-
-
-    // final json = user.toJson();
-    // await docUser.set(json);
-
 
 // User (
 //   this.id,

@@ -52,10 +52,10 @@ class _MenuPageState extends State<MenuPage> {
               title: const Text('오늘'),
               onTap: () {
                 print("오늘");
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => const Today()),
-                // );
+                Navigator.push(
+                   context,
+                   MaterialPageRoute(builder: (context) => const Today()),
+                );
               },
             ),
             ListTile(
