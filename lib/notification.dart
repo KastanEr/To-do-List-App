@@ -36,20 +36,26 @@ class _NotificationScreenState extends State<NotificationScreen> {
             ),
             child: Row(
               children: [
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: NetworkImage(
-                        'https://pbs.twimg.com/profile_images/1257704447105064960/m_ZRnYgO_400x400.jpg',
+                Padding(
+                  padding: EdgeInsets.only(left: 10, top: 10, right:10),
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: AssetImage('lib/asset/catcat_for_image.png'),
                       ),
                     ),
                   ),
                 ),
                 SizedBox(width: 10),
-                Text(notification),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Text(notification),
+                  ),
+                ),
               ],
             ),
           );
