@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:todolist/menu.dart';
 import 'package:todolist/notification.dart';
+import 'package:todolist/logineduser.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
-import 'logineduser.dart';
 
-class ProgressIndicatorApp extends StatelessWidget {
-  const ProgressIndicatorApp({super.key});
+import 'firebasecontroller.dart';
+import 'dart:async';
+import 'package:todolist/model/todoproject.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +28,116 @@ class HomePage extends StatefulWidget {
       _ProgressIndicatorExampleState();
 }
 
+class MyStatefulWidget extends StatefulWidget {
+  MyStatefulWidget ({Key? key}) : super(key: key);
+
+  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+
+}
+
+class MyImportantWidget extends StatefulWidget {
+  MyImportantWidget({Key? key}) : super(key: key);
+
+  _MyImportantWidgetState createState() => _MyImportantWidgetState();
+}
+
+
+
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+
+  List<bool> isChecked = [];
+  List<bool> isStarCheck = [];
+
+  List<String> tasks = ['개인과제','프로젝트','플러터','개인과제','프로젝트','플러터'];
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      padding: const EdgeInsets.all(5.0),
+      itemCount: tasks.length,
+      itemBuilder: (BuildContext ctx, int idx) {
+        isChecked.add(false);
+        isStarCheck.add(false);
+        return CheckboxListTile(
+          title: Text("${tasks[idx]}"),
+          subtitle: Text("날짜데이터"),
+          checkColor: Colors.black,
+          controlAffinity: ListTileControlAffinity.leading,
+          value: isChecked[idx],
+          onChanged: (bool? value) {
+            setState(() {
+              isChecked[idx] = value!;
+            });
+          },
+            secondary: IconButton(
+                onPressed: (){
+                  setState(() {
+                    isStarCheck[idx] = !isStarCheck[idx];
+                  });
+                },
+                icon: isStarCheck[idx] ? Icon(Icons.star,color: Colors.amberAccent,) : Icon(Icons.star_border)
+            )
+        );
+
+      },
+    );
+
+  }
+
+}
+
+class _MyImportantWidgetState extends State<MyImportantWidget> {
+
+  List<String> tasks = ['공부하기','책읽기','자바공부','그냥잇기'];
+  List<bool> isChecked = [];
+  List<bool> isStarCheck = [];
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        padding: const EdgeInsets.all(5.0),
+        itemCount: tasks.length,
+        itemBuilder: (BuildContext ctx, int idx) {
+          isChecked.add(false);
+          isStarCheck.add(false);
+          return CheckboxListTile(
+              title: Text("${tasks[idx]}"),
+              subtitle: Text("날짜데이터"),
+              checkColor: Colors.black,
+              controlAffinity: ListTileControlAffinity.leading,
+              value: isChecked[idx],
+              onChanged: (bool? value) {
+                setState(() {
+                  isChecked[idx] = value!;
+                });
+              },
+              secondary: IconButton(
+                  onPressed: (){
+                    setState(() {
+                      isStarCheck[idx] = !isStarCheck[idx];
+                    });
+                  },
+                  icon: isStarCheck[idx] ? Icon(Icons.star,color: Colors.amberAccent,) : Icon(Icons.star_border)
+              )
+          );
+        }
+    );
+  }
+
+}
+
+
+class _ProgressIndicatorExampleState extends State<HomePage>
+    with TickerProviderStateMixin {
+
+  int myAllTask = 0; // 유저가 생성한 전체 업무
+  int myDoneTask = 0; // 유저가 완료한 업무
+
+  void setState(VoidCallback fn) {
+    myAllTask = LoginedUser.loginedUser.numberOfTodo; // 유저가 생성한 전체 업무
+    myDoneTask = LoginedUser.loginedUser.numberOfDone; // 유저가 완료한 업무
+
+    super.setState(fn);
+  }
 class MyEventList extends StatelessWidget{
   List<String> tasks = ['개인과제','프로젝트','플러터','개인과제','프로젝트','플러터'];
   Widget build(BuildContext context){
@@ -79,15 +192,15 @@ class MyimportantList extends StatelessWidget{
 
 }
 
-class _ProgressIndicatorExampleState extends State<HomePage>
-    with TickerProviderStateMixin {
   late AnimationController controller;
   bool determinate = false;
   List<bool> isChecked = [];
   List<bool> Checked = [];
 
-
-
+  late AnimationController controller;
+  bool determinate = false;
+  List<bool> isChecked = [];
+  List<bool> Checked = [];
 
   void initState() {
     controller = AnimationController(
@@ -137,7 +250,6 @@ class _ProgressIndicatorExampleState extends State<HomePage>
           ),
         ],
       ),
-
 
       body: Container(
         margin: const EdgeInsets.all(10.0),
@@ -257,7 +369,6 @@ class _ProgressIndicatorExampleState extends State<HomePage>
           ],
         ),
       ),
-
     );
   }
 }

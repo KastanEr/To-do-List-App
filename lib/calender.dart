@@ -1,194 +1,89 @@
-// Copyright 2019 Aleksander Woźniak
-// SPDX-License-Identifier: Apache-2.0
-
 import 'package:flutter/material.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:todolist/home.dart';
-//import 'package:todolist/menu.dart';
-
-import 'package:todolist/calender/util.dart';
+import 'package:flutter_clean_calendar/flutter_clean_calendar.dart';
 
 class CalendarPage extends StatefulWidget {
-  @override
-  _CalendarPageState createState() => _CalendarPageState();
-}
+  const CalendarPage({Key? key}) : super(key: key);
 
-class _CalendarPageState extends State<CalendarPage> {
-  late final ValueNotifier<List<Event>> _selectedEvents;
-  CalendarFormat _calendarFormat = CalendarFormat.month;
-  RangeSelectionMode _rangeSelectionMode = RangeSelectionMode
-      .toggledOff; // Can be toggled on/off by longpressing a date
-  DateTime _focusedDay = DateTime.now();
-  DateTime? _selectedDay;
-  DateTime? _rangeStart;
-  DateTime? _rangeEnd;
+  @override
+  _CalendarPage createState() => _CalendarPage();
+
+}
+List<DateTime> eventdate = [DateTime(2022,12,30),DateTime(2022,12,25)];
+List<String> eventname = ['플러터 프로젝트','보고서 작성'];
+Map<DateTime, List<CleanCalendarEvent>> addevent={};
+
+
+class _CalendarPage extends State<CalendarPage> {
+
+//   Map<DateTime, List<CleanCalendarEvent>> add(){
+//
+//   for(int i=0; i<eventdate.length; i++){
+//     addevent=new Map.from({eventdate[i] : [
+//     CleanCalendarEvent(eventname[0],
+//     startTime: DateTime.now(),
+//     endTime: DateTime.now(),)
+//     ]});
+//   }
+//   return addevent;
+// }
+
+
+
+
+  Map<DateTime, List<CleanCalendarEvent>> _events = {
+    eventdate[0] : [
+     CleanCalendarEvent(eventname[0],
+     startTime: DateTime(2022,12,30,10,0),
+     endTime: DateTime(2022,12,30,12,0),)
+     ],
+    eventdate[0] : [
+      CleanCalendarEvent(eventname[0],
+        startTime: DateTime(2022,12,30,10,0),
+        endTime: DateTime(2022,12,30,12,0),)
+    ],
+    eventdate[1] : [
+      CleanCalendarEvent(eventname[1],
+        startTime: DateTime(2022,12,30,10,0),
+        endTime: DateTime(2022,12,30,12,0),)
+    ]
+  };
 
   @override
   void initState() {
     super.initState();
-
-    _selectedDay = _focusedDay;
-    _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
-  }
-
-  @override
-  void dispose() {
-    _selectedEvents.dispose();
-    super.dispose();
-  }
-
-  List<Event> _getEventsForDay(DateTime day) {
-    // Implementation example
-    return kEvents[day] ?? [];
-  }
-
-  List<Event> _getEventsForRange(DateTime start, DateTime end) {
-    // Implementation example
-    final days = daysInRange(start, end);
-
-    return [
-      for (final d in days) ..._getEventsForDay(d),
-    ];
-  }
-
-  void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-    if (!isSameDay(_selectedDay, selectedDay)) {
-      setState(() {
-        _selectedDay = selectedDay;
-        _focusedDay = focusedDay;
-        _rangeStart = null; // Important to clean those
-        _rangeEnd = null;
-        _rangeSelectionMode = RangeSelectionMode.toggledOff;
-      });
-
-      _selectedEvents.value = _getEventsForDay(selectedDay);
-    }
-  }
-
-  void _onRangeSelected(DateTime? start, DateTime? end, DateTime focusedDay) {
-    setState(() {
-      _selectedDay = null;
-      _focusedDay = focusedDay;
-      _rangeStart = start;
-      _rangeEnd = end;
-      _rangeSelectionMode = RangeSelectionMode.toggledOn;
-    });
-
-    // `start` or `end` could be null
-    if (start != null && end != null) {
-      _selectedEvents.value = _getEventsForRange(start, end);
-    } else if (start != null) {
-      _selectedEvents.value = _getEventsForDay(start);
-    } else if (end != null) {
-      _selectedEvents.value = _getEventsForDay(end);
-    }
+    // Force selection of today on first load, so that the list of today's events gets shown.
+    _handleNewDate(DateTime(
+        DateTime.now().year, DateTime.now().month, DateTime.now().day));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        /*leading: IconButton(
-          icon: const Icon(
-            Icons.menu,
-            semanticLabel: 'menu',
-          ),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const MenuPage()),
-            );
-          },
-        ),*/
-        title: Text('Calendar'),
-
-        actions: <Widget> [
-          IconButton(
-            icon: const Icon(
-              Icons.home,
-              semanticLabel: 'home',
-            ),
-            onPressed: () {
-              print('home');
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const HomePage()),
-              );
-            },
-          ),
-        ],
+        automaticallyImplyLeading: true,
+        title: const Text('캘린더'),
       ),
-      body: Column(
-        children: [
-          TableCalendar<Event>(
-            locale: 'ko_KR',
-            firstDay: kFirstDay,
-            lastDay: kLastDay,
-            focusedDay: _focusedDay,
-            selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-            rangeStartDay: _rangeStart,
-            rangeEndDay: _rangeEnd,
-            calendarFormat: _calendarFormat,
-            rangeSelectionMode: _rangeSelectionMode,
-            eventLoader: _getEventsForDay,
-            startingDayOfWeek: StartingDayOfWeek.monday,
-            calendarStyle: CalendarStyle(
-              // Use `CalendarStyle` to customize the UI
-              outsideDaysVisible: false,
-            ),
-            onDaySelected: _onDaySelected,
-            onRangeSelected: _onRangeSelected,
-            onFormatChanged: (format) {
-              if (_calendarFormat != format) {
-                setState(() {
-                  _calendarFormat = format;
-                });
-              }
-            },
-            onPageChanged: (focusedDay) {
-              _focusedDay = focusedDay;
-            },
-          ),
-          const SizedBox(height: 8.0),
-          Expanded(
+      body: Calendar(
+          startOnMonday: true,
+          weekDays: ['월', '화', '수', '목', '금', '토', '일'],
+          events: _events,
+          isExpandable: true,
+          eventDoneColor: Colors.green,
+          selectedColor: Colors.grey,
+          todayColor: Colors.blue,
+          eventColor: Colors.pink,
+          locale: 'korea',
+          todayButtonText: 'Today',
+          isExpanded: true,
+          expandableDateFormat: 'EEEE, dd. MMMM yyyy',
+          dayOfWeekStyle: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.w800, fontSize: 11),
+        ),
 
-              child:
-              Container(
-
-                margin: EdgeInsets.all(20),
-                padding: EdgeInsets.only(top: 15,bottom: 15),
-
-
-
-                decoration: BoxDecoration(
-                  border: Border.all(),
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
-                child: ValueListenableBuilder<List<Event>>(
-                  valueListenable: _selectedEvents,
-                  builder: (context, value, _) {
-                    return ListView.builder(
-                      itemCount: value.length,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 12.0,
-                            vertical: 4.0,
-                          ),
-
-                          child: ListTile(
-                            onTap: () => print('${value[index]}'),
-                            title: Text('${value[index]}'),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                ),
-              )
-          ),
-        ],
-      ),
     );
+  }
+
+  void _handleNewDate(date) {
+    print('Date selected: $date');
   }
 }

@@ -61,7 +61,7 @@ class _MenuPageState extends State<MenuPage> {
         stream: FirebaseController.projectSnapshots,
         builder: _builder,
       ),
-      
+
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () async {
@@ -117,6 +117,7 @@ Widget _builder(BuildContext context, AsyncSnapshot snapshot) {
       leading: const Icon(Icons.calendar_month, color: Colors.red,),
       title: const Text('캘린더'),
       onTap: () {
+        LoginedUser.updateProjectList();
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => CalendarPage()),

@@ -4,6 +4,7 @@ import 'package:todolist/logineduser.dart';
 import 'package:todolist/menu.dart';
 import 'chart/ui_chart/bar_chart.dart';
 import 'chart/ui_chart/pie_chart.dart';
+import 'logineduser.dart';
 
 class runningPage extends StatelessWidget {
 
@@ -27,6 +28,8 @@ class runningPage extends StatelessWidget {
     "Gmaster",
     "Challenger",
   ];
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +63,7 @@ class runningPage extends StatelessWidget {
                 ),
               ],
             ),
+
             body: Column (
               children: [
                 SizedBox(height: 50.0,),
@@ -97,6 +101,7 @@ class runningPage extends StatelessWidget {
                 ),
               ],
             )
+
 
     );
 

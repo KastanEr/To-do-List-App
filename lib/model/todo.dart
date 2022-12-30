@@ -5,8 +5,8 @@ class Todo {
   String? tid;
   late String title;
   late String description;
-  DateTime? deadLine;
-  // DateTime? finalDeadLine;
+  Timestamp? deadLine;
+  Timestamp? finalDeadLine; 
   late bool done;
   late bool important;
 
@@ -15,7 +15,7 @@ class Todo {
     String? title,
     String? description,
     this.deadLine,
-    //this.finalDeadLine,
+    this.finalDeadLine,
     this.done = false,
     this.important = false,
   }) : title = title ?? '제목 없음', description = description ?? '';
@@ -38,8 +38,8 @@ class Todo {
     'tid': tid,
     'title': title,
     'description': description,
-    'deadline': deadLine,
-    //'finalDeadLine': finalDeadLine,
+    'deadLine': deadLine,
+    'finalDeadLine': finalDeadLine,
     'done': done,
     'important': important,
   };
