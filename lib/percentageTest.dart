@@ -106,7 +106,6 @@ class _ProgressIndicatorExampleState extends State<HomePage>
             semanticLabel: 'menu',
           ),
           onPressed: () async {
-            await LoginedUser.updateProjectList();
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const MenuPage()),

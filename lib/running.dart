@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:todolist/home.dart';
 import 'package:todolist/logineduser.dart';
-import 'package:todolist/menu.dart';
 import 'chart/ui_chart/bar_chart.dart';
 import 'chart/ui_chart/pie_chart.dart';
-import 'logineduser.dart';
 
 class runningPage extends StatelessWidget {
 
@@ -28,8 +26,6 @@ class runningPage extends StatelessWidget {
     "Gmaster",
     "Challenger",
   ];
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -66,37 +62,37 @@ class runningPage extends StatelessWidget {
 
             body: Column (
               children: [
-                SizedBox(height: 50.0,),
-                Text('Schedule Status',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
-                SizedBox(height: 30.0,),
+                const SizedBox(height: 50.0,),
+                const Text('Schedule Status',style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
+                const SizedBox(height: 30.0,),
                 Row(
                   children: [
-                    SizedBox(width: 25.0,),
+                    const SizedBox(width: 25.0,),
                     CustomPaint(
-                      size: Size(150, 150),
+                      size: const Size(150, 150),
                       painter: PieChart(percentage: myDoneTask, // 임의의 값
                           textScaleFactor: 1.0),
                     ),
-                    SizedBox(width: 25.0,),
-                    Text(" 생성한 일 : $myAllTask \n 완료한 일 : $myDoneTask ",style: TextStyle(fontSize: 20),)
+                    const SizedBox(width: 25.0,),
+                    Text(" 생성한 일 : $myAllTask \n 완료한 일 : $myDoneTask ",style: const TextStyle(fontSize: 20),)
 
                   ],
                 ),
-                SizedBox(height: 70.0,),
-                Text("Management Tier",style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
-                SizedBox(height: 30.0,),
+                const SizedBox(height: 70.0,),
+                const Text("Management Tier",style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
+                const SizedBox(height: 30.0,),
                 Row(
                   children: [
-                    SizedBox(width: 25.0,),
+                    const SizedBox(width: 25.0,),
                     CustomPaint(
-                        size: Size(200,200),
+                        size: const Size(200,200),
                         foregroundPainter: BarChart(
                             data : points,
                             labels :labels,
-                            color: Color(0xFF151F14))
+                            color: const Color(0xFF151F14))
                     ),
-                    SizedBox(width: 20.0,),
-                    Text(" 당신의 티어는 \n ${labels[4]} 입니다.",style: TextStyle(fontSize: 20),),
+                    const SizedBox(width: 20.0,),
+                    Text(" 당신의 티어는 \n ${labels[4]} 입니다.",style: const TextStyle(fontSize: 20),),
                   ],
                 ),
               ],

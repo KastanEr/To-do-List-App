@@ -7,7 +7,7 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
-  final List<String> _notifications = [    'Notification 1',    'Notification 2',    'Notification 3',    'Notification 4',  ];
+  final List<String> _notifications = [  '12:00 - 발표 자료 만들기',    '리마인드 - 소감문 작성하기',    '리마인드 - 알림 기능 데이터베이스 연동하기',    '리마인드 - 다음 버전 로드맵 만들기',  ];
 
   @override
   Widget build(BuildContext context) {
@@ -36,20 +36,26 @@ class _NotificationScreenState extends State<NotificationScreen> {
             ),
             child: Row(
               children: [
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                      image: NetworkImage(
-                        'https://pbs.twimg.com/profile_images/1257704447105064960/m_ZRnYgO_400x400.jpg',
+                Padding(
+                  padding: EdgeInsets.only(left: 10, top: 10, right:10),
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: AssetImage('lib/asset/catcat_for_image.png'),
                       ),
                     ),
                   ),
                 ),
                 SizedBox(width: 10),
-                Text(notification),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Text(notification),
+                  ),
+                ),
               ],
             ),
           );

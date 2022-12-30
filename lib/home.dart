@@ -4,13 +4,6 @@ import 'package:todolist/notification.dart';
 import 'package:todolist/logineduser.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-
-import 'firebasecontroller.dart';
-import 'dart:async';
-import 'package:todolist/model/todoproject.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -20,15 +13,17 @@ class HomePage extends StatefulWidget {
 }
 
 class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget ({Key? key}) : super(key: key);
+  const MyStatefulWidget ({Key? key}) : super(key: key);
 
+  @override
   _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
 
 }
 
 class MyImportantWidget extends StatefulWidget {
-  MyImportantWidget({Key? key}) : super(key: key);
+  const MyImportantWidget({Key? key}) : super(key: key);
 
+  @override
   _MyImportantWidgetState createState() => _MyImportantWidgetState();
 }
 
@@ -39,7 +34,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   List<bool> isChecked = [];
   List<bool> isStarCheck = [];
 
-
+  // List<TodoProject> todo =LoginedUser.projectList;
+  // List<String> tasks = [];
   List<String> tasks = ['개인과제','프로젝트','플러터','개인과제','프로젝트','플러터'];
   @override
   Widget build(BuildContext context) {
@@ -47,11 +43,16 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       padding: const EdgeInsets.all(5.0),
       itemCount: tasks.length,
       itemBuilder: (BuildContext ctx, int idx) {
+        // setState(() {
+        //   for(int i=0; i<todo.length; i++){
+        //     tasks.add(todo[i].title);
+        //   }
+        // });
         isChecked.add(false);
         isStarCheck.add(false);
         return CheckboxListTile(
-            title: Text("${tasks[idx]}"),
-            subtitle: Text("날짜데이터"),
+            title: Text(tasks[idx]),
+            subtitle: const Text("날짜데이터"),
             checkColor: Colors.black,
             controlAffinity: ListTileControlAffinity.leading,
             value: isChecked[idx],
@@ -66,7 +67,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     isStarCheck[idx] = !isStarCheck[idx];
                   });
                 },
-                icon: isStarCheck[idx] ? Icon(Icons.star,color: Colors.amberAccent,) : Icon(Icons.star_border)
+                icon: isStarCheck[idx] ? const Icon(Icons.star,color: Colors.amberAccent,) : const Icon(Icons.star_border)
             )
         );
 
@@ -79,7 +80,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
 class _MyImportantWidgetState extends State<MyImportantWidget> {
 
-  List<String> tasks = ['공부하기','책읽기','자바공부','그냥잇기'];
+
+
+  List<String> tasks = ['개인과제','플러터'];
   List<bool> isChecked = [];
   List<bool> isStarCheck = [];
 
@@ -89,11 +92,12 @@ class _MyImportantWidgetState extends State<MyImportantWidget> {
         padding: const EdgeInsets.all(5.0),
         itemCount: tasks.length,
         itemBuilder: (BuildContext ctx, int idx) {
+
           isChecked.add(false);
           isStarCheck.add(false);
           return CheckboxListTile(
-              title: Text("${tasks[idx]}"),
-              subtitle: Text("날짜데이터"),
+              title: Text(tasks[idx]),
+              subtitle: const Text("날짜데이터"),
               checkColor: Colors.black,
               controlAffinity: ListTileControlAffinity.leading,
               value: isChecked[idx],
@@ -108,7 +112,7 @@ class _MyImportantWidgetState extends State<MyImportantWidget> {
                       isStarCheck[idx] = !isStarCheck[idx];
                     });
                   },
-                  icon: isStarCheck[idx] ? Icon(Icons.star,color: Colors.amberAccent,) : Icon(Icons.star_border)
+                  icon: isStarCheck[idx] ? const Icon(Icons.star,color: Colors.amberAccent,) : const Icon(Icons.star_border)
               )
           );
         }
@@ -124,6 +128,7 @@ class _ProgressIndicatorExampleState extends State<HomePage>
   int myAllTask = 0; // 유저가 생성한 전체 업무
   int myDoneTask = 0; // 유저가 완료한 업무
 
+  @override
   void setState(VoidCallback fn) {
     myAllTask = LoginedUser.loginedUser.numberOfTodo; // 유저가 생성한 전체 업무
     myDoneTask = LoginedUser.loginedUser.numberOfDone; // 유저가 완료한 업무
@@ -137,6 +142,7 @@ class _ProgressIndicatorExampleState extends State<HomePage>
   List<bool> Checked = [];
 
 
+  @override
   void initState() {
     controller = AnimationController(
       vsync: this,
@@ -148,6 +154,7 @@ class _ProgressIndicatorExampleState extends State<HomePage>
     super.initState();
   }
 
+  @override
   void dispose() {
     controller.dispose();
     super.dispose();
@@ -163,7 +170,6 @@ class _ProgressIndicatorExampleState extends State<HomePage>
             semanticLabel: 'menu',
           ),
           onPressed: () async {
-            await LoginedUser.updateProjectList();
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const MenuPage()),
@@ -199,7 +205,7 @@ class _ProgressIndicatorExampleState extends State<HomePage>
                   width: 1,
                   color: Colors.black,
                 ),
-                borderRadius: BorderRadius.all(
+                borderRadius: const BorderRadius.all(
                   Radius.circular(15.0),
                 ),
               ),
@@ -210,15 +216,17 @@ class _ProgressIndicatorExampleState extends State<HomePage>
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 30),
-                  LinearPercentIndicator(
-                    width: MediaQuery.of(context).size.width - 100,
-                    animation: true,
-                    lineHeight: 20.0,
-                    animationDuration: 2000,
-                    percent: (myDoneTask.toDouble()/myAllTask.toDouble()),
-                    center: Text("${myDoneTask.toDouble()/(myAllTask.toDouble())}"),
-                    linearStrokeCap: LinearStrokeCap.roundAll,
-                    progressColor: Colors.blueAccent,
+                  Center(
+                    child : LinearPercentIndicator(
+                      width: MediaQuery.of(context).size.width - 100,
+                      animation: true,
+                      lineHeight: 20.0,
+                      animationDuration: 2000,
+                      percent: (myDoneTask.toDouble()/myAllTask.toDouble()),
+                      center: Text("${myDoneTask.toDouble()/(myAllTask.toDouble())}"),
+                      linearStrokeCap: LinearStrokeCap.roundAll,
+                      progressColor: Colors.blueAccent,
+                    ),
                   ),
                   const SizedBox(height: 10,),
                 ],
@@ -232,7 +240,7 @@ class _ProgressIndicatorExampleState extends State<HomePage>
                       width: 1,
                       color: Colors.black,
                     ),
-                    borderRadius: BorderRadius.all(
+                    borderRadius: const BorderRadius.all(
                         Radius.circular(15.0)
                     )
                 ),
@@ -240,12 +248,12 @@ class _ProgressIndicatorExampleState extends State<HomePage>
 
                 child: Column(
                     children:[
-                      Text("Today",
+                      const Text("Today",
                           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
 
                       Container(
-                        margin: const EdgeInsets.all(16.0),
-                        padding: const EdgeInsets.all(16.0),
+                        margin: const EdgeInsets.all(5.0),
+                        padding: const EdgeInsets.all(1.0),
                         height: 200,
                         child: MyStatefulWidget(),
                       )
@@ -254,24 +262,27 @@ class _ProgressIndicatorExampleState extends State<HomePage>
             ),
             Container(
                 margin: const EdgeInsets.all(5.0),
-                padding: const EdgeInsets.all(15.0),
+                padding: const EdgeInsets.all(1.0),
                 decoration: BoxDecoration(
                     border: Border.all(
                       width: 1,
                       color: Colors.black,
                     ),
-                    borderRadius: BorderRadius.all(
+                    borderRadius: const BorderRadius.all(
                         Radius.circular(15.0)
                     )
                 ),
 
                 child: Column(
                     children:[
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical: 4),
+                      ),
                       Text("중요일정",
                           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                       Container(
-                        margin: const EdgeInsets.all(16.0),
-                        padding: const EdgeInsets.all(16.0),
+                        margin: const EdgeInsets.all(1.0),
+                        padding: EdgeInsets.symmetric(vertical: 4),
                         height: 200,
                         child: MyImportantWidget(),
                       )

@@ -12,28 +12,6 @@ class UpcommingPage extends StatefulWidget {
 }
 
 class _UpcommingPage extends State<UpcommingPage> {
-  List<Widget> _getUpcommingList() {
-    List<Todo> upcommingList = <Todo>[];
-    List<Widget> upcommingView = <Widget>[];
-    // for(int i = 0; i < LoginedUser.loginedUser!.defaultProject.contnet.length; i++) {
-    //   if(LoginedUser.loginedUser!.defaultProject.contnet[i] is Todo) {
-    //     upcommingList.add(LoginedUser.loginedUser!.defaultProject.contnet[i]);
-    //   }
-    // }
-    // for(int i = 0; i <LoginedUser.loginedUser!.projectList.length; i++) {
-    //   for(int j = 0; j < LoginedUser.loginedUser!.projectList[i].contnet.length; i++) {
-    //     if(LoginedUser.loginedUser!.projectList[i].contnet[j] is Todo) {
-    //       upcommingList.add(LoginedUser.loginedUser!.projectList[i].contnet[j]);
-    //     }
-    //   }
-    // }
-    //upcommingList.sort((a,b) => a.finalDeadLine.compareTo(b.finalDeadLine));
-    return upcommingView;
-  }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +21,6 @@ class _UpcommingPage extends State<UpcommingPage> {
         automaticallyImplyLeading: true,
         title: const Text('예정'),
       ),
-
-
-
       body: DayView(
 
         controller: EventController(),
@@ -67,9 +42,6 @@ class _UpcommingPage extends State<UpcommingPage> {
         onEventTap: (events, date) => print(events),
         onDateLongPress: (date) => print(date),
       ),
-
-
-      );
-
+    );
   }
 }

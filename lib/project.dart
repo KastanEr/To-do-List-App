@@ -1,110 +1,101 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:todolist/model/todoproject.dart';
 
+import 'additemonproject.dart';
+import 'firebasecontroller.dart';
 import 'home.dart';
+import 'logineduser.dart';
 import 'menu.dart';
 
 class ProjectPage extends StatefulWidget {
-  final TodoProject project;
-
-  // const ProjectPage(String title, {Key? key}) : super(key: key);
-  const ProjectPage(this.project); //화면전환하면서 프로젝트 이름 데이터를 가져옴
-
+  late TodoProject project;
+  late Map<int, dynamic> projectMap = {};
+  ProjectPage(TodoProject inputProject, {Key? key}) : super(key: key) {
+    project = inputProject;
+  }
 
   @override
-  _ProjectPage createState() => _ProjectPage();
+  _ProjectPage createState() => _ProjectPage(project);
 }
 
 class _ProjectPage extends State<ProjectPage> {
+  TodoProject project;
   TextEditingController projectdate = TextEditingController();
+  
+  _ProjectPage(this.project);
 
-
-  List<bool> isChecked = [];
-  List<bool> taskviewCheck=[];
-
-  List<Container> _getTaskList(){
-    List<Container> TaskList = <Container>[];
-
-    for (var i=0; i<3; i++){
-      taskviewCheck.add(false);
-      TaskList.add(
-        Container(
-          child: Column(
+  List<Widget> _getProjectContent(TodoProject project) {
+    Map<int, dynamic> projectMap = {};
+    for(int i = 0; i < project.content.length; i++) {
+      if(project.content[i][0] == 'H' && project.content[i][1] == ':') {
+        projectMap[i] = project.content[i].substring(2);
+      }
+      else {
+        projectMap[i] = LoginedUser.todos[project.content[i]];
+      }
+    }
+    List<Widget> contentList = <Widget>[];
+    for(int i = 0; i < projectMap.length; i++) {
+      if(projectMap[i] is String) {
+        contentList.add(
+          Row(
             children: [
               Row(
                 children: [
-                  Text('Task',style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-                  IconButton(onPressed: (){
-                    setState(() {
-                      taskviewCheck[i] = !taskviewCheck[i];
-                    });
-
-                  }, icon: Icon(Icons.arrow_drop_down)),
-
+                  Text(projectMap[i],style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
                 ],
-              ),
-              Visibility(
-                visible: taskviewCheck[i],
-                child: Container(
-                  height: 200,
-                  child: ListView(
-                    padding: const EdgeInsets.all(8),
-                    children: _getStepList(),
-                  ),
-                ),
               ),
             ],
-          ),
-        )
-
-      );
-    }
-
-    return TaskList;
-  }
-
-  List<Widget> _getStepList () {
-    List<Widget> stepList = <Widget>[];
-
-    for (var i = 0; i < 3; i++) {
-      isChecked.add(false);
-      stepList.add(
-          Container(
-              child : Row (
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Checkbox(
-                    value: isChecked[i],
-                    onChanged: (bool? value) {
-                      setState(() {
-                        isChecked[i] = value!;
-                      });
-                    },
-                  ),
-                  Text("Step ${i+1}"),
-                  IconButton(
-                    icon: const Icon(
-                      Icons.star_border,
-                      semanticLabel: 'star',
-                    ),
-                    onPressed: () {
-                      print('Icon pressed');
-                    },
-                  ),
-
-                ],
-              )
           )
-      );
+        );
+      }
+      else {
+        contentList.add(
+          Row(
+            children: [
+              IconButton(
+                onPressed: () {
+                    if(projectMap[i].done == true) {
+                      LoginedUser.loginedUser.numberOfDone -= 1;
+                      FirebaseController.updateUser(LoginedUser.loginedUser);
+                    }
+                    else {
+                      LoginedUser.loginedUser.numberOfDone += 1;
+                      FirebaseController.updateUser(LoginedUser.loginedUser);
+                    }
+                    projectMap[i].toggleDone();
+                    FirebaseController.updateTodo(projectMap[i]);
+                  },
+                  icon: Icon(projectMap[i].done ? Icons.check_box : Icons.check_box_outline_blank,)
+              ),
+              Text(
+                projectMap[i].title,
+              ),
+              IconButton(
+                onPressed: () {
+                  projectMap[i].toggleImportant;
+                  FirebaseController.updateTodo(projectMap[i]);
+                  setState(() {});
+                },
+                icon: Icon(projectMap[i].important ? Icons.star : Icons.star_border,),
+              ),
+            ],
+          )
+        );
+      }
     }
-
-    return stepList;
+    return contentList;
   }
 
+  String _value = '';
 
+  void _update(String value) {
+    setState(() {
+      _value = value;
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,37 +113,21 @@ class _ProjectPage extends State<ProjectPage> {
               );
             },
           ),
-
-          actions: <Widget> [
-            IconButton(
-
-                onPressed: (){
-                  print('chatting');
-                },
-                icon: Icon(Icons.chat)),
-            IconButton(
-                onPressed: (){
-                  print('search');
-                },
-                icon: Icon(Icons.search)),
-            IconButton(
-
-              icon: const Icon(
-                Icons.home,
-                semanticLabel: 'home',
-              ),
-              onPressed: () {
-
-                print('home');
-
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const HomePage()));
-              },
+        title: Text(project.title),
+        actions: <Widget> [
+          IconButton(
+            icon: const Icon(
+              Icons.home,
+              semanticLabel: 'home',
             ),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const HomePage()));
+            },
+          ),
 
-          ],
-
-        ),
+        ],
+      ),
 
 
         body: ListView(
@@ -168,14 +143,16 @@ class _ProjectPage extends State<ProjectPage> {
                   )
               ),
 
-              child : Row(
-                  children: [
-                    Text("${widget.project.title}", //가져온 프로젝트 데이터 이름으로 타이틀 설정
-                      style: TextStyle(fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),),
-                  ]
-
+              child: Row(
+                children: [
+                  Text(
+                    project.title, //가져온 프로젝트 데이터 이름으로 타이틀 설정
+                    style: const TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ]
               ),
 
             ),
@@ -221,45 +198,15 @@ class _ProjectPage extends State<ProjectPage> {
                   ),
                   Column(
                     children: [
-
-                      Container(
-                          child: Column(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(top: 15.0),
-                                // decoration: BoxDecoration(
-                                //     border: Border(
-                                //         bottom: BorderSide(
-                                //           color: Colors.black,
-                                //         )
-                                //
-                                //     )
-                                // ),
-                                child: Column(
-                                  children: _getTaskList()
-
-
-                                )
-                              ),
-
-
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  IconButton(onPressed: (){
-                                    print("add photo");
-                                  }, icon: Icon(Icons.add_a_photo)),
-                                  IconButton(onPressed: (){
-                                    print("add document");
-                                  }, icon: Icon(Icons.add_chart)),
-                                  IconButton(onPressed: (){
-                                    print("add photho");
-                                  }, icon: Icon(Icons.mic))
-                                ],
-                              )
-
-                            ],
-                          )
+                      Column(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(top: 15.0),
+                            child: Column(
+                              children: _getProjectContent(project)
+                            )
+                          ),
+                        ],
                       ),
 
                     ],
@@ -274,9 +221,12 @@ class _ProjectPage extends State<ProjectPage> {
 
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
-          onPressed: () async {
-            
-            setState(() {});
+          onPressed: () {
+            Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AddItemOnProjectPage(project)))
+              .then((value) {
+                _update(value);
+            });
           },
         ),
     );

@@ -33,11 +33,11 @@ class TodoApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryTextTheme: Typography(platform: TargetPlatform.iOS).black,
-        primarySwatch: paleYellow,
-        iconTheme: const IconThemeData(color: Colors.black),
-        buttonTheme: ButtonThemeData(
-          textTheme: ButtonTextTheme.primary),
+        // primaryTextTheme: Typography(platform: TargetPlatform.iOS).black,
+        // primarySwatch: paleYellow,
+        // iconTheme: const IconThemeData(color: Colors.black),
+        // buttonTheme: ButtonThemeData(
+        //   textTheme: ButtonTextTheme.primary),
         textTheme: const TextTheme(
           headline1: TextStyle(fontSize: 72, color: black, fontWeight: FontWeight.bold),
           headline2: TextStyle(fontSize: 36, color: black, fontStyle: FontStyle.italic),
