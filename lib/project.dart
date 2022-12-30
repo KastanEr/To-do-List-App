@@ -52,35 +52,36 @@ class _ProjectPage extends State<ProjectPage> {
       }
       else {
         contentList.add(
-          Row(
-            children: [
-              IconButton(
-                onPressed: () {
-                    if(projectMap[i].done == true) {
-                      LoginedUser.loginedUser.numberOfDone -= 1;
-                      FirebaseController.updateUser(LoginedUser.loginedUser);
-                    }
-                    else {
-                      LoginedUser.loginedUser.numberOfDone += 1;
-                      FirebaseController.updateUser(LoginedUser.loginedUser);
-                    }
-                    projectMap[i].toggleDone();
+          CheckboxListTile(
+            title: Text(projectMap[i].title),
+            subtitle: Text(projectMap[i].deadLine.toString()),
+            checkColor: Colors.black,
+            controlAffinity: ListTileControlAffinity.leading,
+            value: projectMap[i].done,
+            onChanged: (bool? value) {
+              setState(() {
+                if(projectMap[i].done) {
+                  if(LoginedUser.loginedUser.numberOfDone != 0) {
+                    LoginedUser.loginedUser.numberOfDone -= 1;
+                  } 
+                }
+                else {
+                  LoginedUser.loginedUser.numberOfDone += 1;
+                }
+                FirebaseController.updateUser(LoginedUser.loginedUser);
+                projectMap[i].done = value!;
+                FirebaseController.updateTodo(projectMap[i]);
+              });
+            },
+            secondary: IconButton(
+                onPressed: (){
+                  setState(() {
+                    projectMap[i].important = !projectMap[i].important;
                     FirebaseController.updateTodo(projectMap[i]);
-                  },
-                  icon: Icon(projectMap[i].done ? Icons.check_box : Icons.check_box_outline_blank,)
-              ),
-              Text(
-                projectMap[i].title,
-              ),
-              IconButton(
-                onPressed: () {
-                  projectMap[i].toggleImportant;
-                  FirebaseController.updateTodo(projectMap[i]);
-                  setState(() {});
+                  });
                 },
-                icon: Icon(projectMap[i].important ? Icons.star : Icons.star_border,),
-              ),
-            ],
+                icon: projectMap[i].important ? const Icon(Icons.star,color: Colors.amberAccent,) : const Icon(Icons.star_border)
+            )
           )
         );
       }

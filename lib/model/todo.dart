@@ -4,7 +4,7 @@ class Todo {
   String? tid;
   late String title;
   late String description;
-  DateTime? deadLine;
+  DateTime deadLine = DateTime.now();
   // DateTime? finalDeadLine; 
   late bool done;
   late bool important;
@@ -13,7 +13,7 @@ class Todo {
     this.tid,
     String? title,
     String? description,
-    this.deadLine,
+    required this.deadLine,
     // this.finalDeadLine,
     this.done = false,
     this.important = false,

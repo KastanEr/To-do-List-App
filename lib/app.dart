@@ -20,7 +20,7 @@ class TodoApp extends StatelessWidget {
         '/menu': (BuildContext context) => const MenuPage(),
         '/upcomming': (BuildContext context) => const UpcommingPage(),
         '/login': (BuildContext context) => const LoginPage(),
-        '/notification': (BuildContext context) => const NotificationScreen(),
+        // '/notification': (BuildContext context) => const NotificationScreen(),
       },
     );
   }

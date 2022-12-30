@@ -122,8 +122,8 @@ class _ProgressIndicatorExampleState extends State<HomePage>
               semanticLabel: 'notifications',
             ),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationScreen()));
-              print('Notification Button');
+              // Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationScreen()));
+              // print('Notification Button');
             },
           ),
         ],

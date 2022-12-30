@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               TextButton(
                 onPressed: () async {
-                  await FirebaseController.userCollection.doc('6mBEJtk9XrDJ1xF5ETcr').snapshots().listen(
+                  await FirebaseController.userCollection.doc('lsqEST1NlVtLhSpzFpqH').snapshots().listen(
                     (event) => LoginedUser.loginedUser = User.fromJson(event.data()),
                     onError: (error) => print("$error"),
                   );

@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:todolist/menu.dart';
 import 'package:todolist/notification.dart';
 import 'package:todolist/logineduser.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+
+import 'model/todo.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -33,21 +36,21 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   List<bool> isChecked = [];
   List<bool> isStarCheck = [];
-
+  List<Todo> todoList = LoginedUser.usersTodos();
+  List<Todo> todayTodos = <Todo>[];
   // List<TodoProject> todo =LoginedUser.projectList;
   // List<String> tasks = [];
   List<String> tasks = ['개인과제','프로젝트','플러터','개인과제','프로젝트','플러터'];
   @override
   Widget build(BuildContext context) {
+    // for(int i = 0; i < todoList.length; i++) {
+    //   if(todoList[i].deadLine == Timestamp.d.toDate())
+    // }
     return ListView.builder(
       padding: const EdgeInsets.all(5.0),
       itemCount: tasks.length,
       itemBuilder: (BuildContext ctx, int idx) {
-        // setState(() {
-        //   for(int i=0; i<todo.length; i++){
-        //     tasks.add(todo[i].title);
-        //   }
-        // });
+        
         isChecked.add(false);
         isStarCheck.add(false);
         return CheckboxListTile(
@@ -92,7 +95,7 @@ class _MyImportantWidgetState extends State<MyImportantWidget> {
         padding: const EdgeInsets.all(5.0),
         itemCount: tasks.length,
         itemBuilder: (BuildContext ctx, int idx) {
-
+        
           isChecked.add(false);
           isStarCheck.add(false);
           return CheckboxListTile(
@@ -185,8 +188,9 @@ class _ProgressIndicatorExampleState extends State<HomePage>
               semanticLabel: 'notifications',
             ),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationScreen()));
-              print('Notification Button');
+              print(LoginedUser.usersTodos().length);
+              // Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationScreen()));
+              // print('Notification Button');
             },
           ),
         ],
@@ -222,7 +226,7 @@ class _ProgressIndicatorExampleState extends State<HomePage>
                       animation: true,
                       lineHeight: 20.0,
                       animationDuration: 2000,
-                      percent: (myDoneTask.toDouble()/myAllTask.toDouble()),
+                      percent: double.parse((myDoneTask.toDouble()/myAllTask.toDouble()).toStringAsFixed(2)),
                       center: Text("${myDoneTask.toDouble()/(myAllTask.toDouble())}"),
                       linearStrokeCap: LinearStrokeCap.roundAll,
                       progressColor: Colors.blueAccent,

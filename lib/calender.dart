@@ -15,18 +15,17 @@ Map<DateTime, List<CleanCalendarEvent>> addevent={};
 
 class _CalendarPage extends State<CalendarPage> {
   final Map<DateTime, List<CleanCalendarEvent>> _events = {
-    eventdate[0] : [
-     CleanCalendarEvent(eventname[0],
-     startTime: DateTime(2022,12,30,10,0),
-     endTime: DateTime(2022,12,30,12,0),)
+    DateTime(2022,12,31) : [
+     CleanCalendarEvent('장보기',
+     startTime: DateTime(2022,12,31,10,0),
+     endTime: DateTime(2022,12,31,12,0),),
+     CleanCalendarEvent('택배 반품하기',
+        startTime: DateTime(2022,12,30,14,0),
+        endTime: DateTime(2022,12,30,16,0),)
      ],
+    
     eventdate[0] : [
-      CleanCalendarEvent(eventname[0],
-        startTime: DateTime(2022,12,30,10,0),
-        endTime: DateTime(2022,12,30,12,0),)
-    ],
-    eventdate[1] : [
-      CleanCalendarEvent(eventname[1],
+      CleanCalendarEvent('쓰레기 버리기',
         startTime: DateTime(2022,12,30,10,0),
         endTime: DateTime(2022,12,30,12,0),)
     ]
