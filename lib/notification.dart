@@ -7,7 +7,7 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
-  final List<String> _notifications = [    'Notification 1',    'Notification 2',    'Notification 3',    'Notification 4',  ];
+  final List<String> _notifications = [  '12:00 - 발표 자료 만들기',    '리마인드 - 소감문 작성하기',    '리마인드 - 알림 기능 데이터베이스 연동하기',    '리마인드 - 다음 버전 로드맵 만들기',  ];
 
   @override
   Widget build(BuildContext context) {
