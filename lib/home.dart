@@ -5,10 +5,10 @@ import 'package:todolist/logineduser.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 
-import 'firebasecontroller.dart';
-import 'dart:async';
-import 'package:todolist/model/todoproject.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'firebasecontroller.dart';
+//import 'dart:async';
+//import 'package:todolist/model/todoproject.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -210,15 +210,17 @@ class _ProgressIndicatorExampleState extends State<HomePage>
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 30),
-                  LinearPercentIndicator(
-                    width: MediaQuery.of(context).size.width - 100,
-                    animation: true,
-                    lineHeight: 20.0,
-                    animationDuration: 2000,
-                    percent: (myDoneTask.toDouble()/myAllTask.toDouble()),
-                    center: Text("${myDoneTask.toDouble()/(myAllTask.toDouble())}"),
-                    linearStrokeCap: LinearStrokeCap.roundAll,
-                    progressColor: Colors.blueAccent,
+                  Center(
+                    child : LinearPercentIndicator(
+                      width: MediaQuery.of(context).size.width - 100,
+                      animation: true,
+                      lineHeight: 20.0,
+                      animationDuration: 2000,
+                      percent: (myDoneTask.toDouble()/myAllTask.toDouble()),
+                      center: Text("${myDoneTask.toDouble()/(myAllTask.toDouble())}"),
+                      linearStrokeCap: LinearStrokeCap.roundAll,
+                      progressColor: Colors.blueAccent,
+                    ),
                   ),
                   const SizedBox(height: 10,),
                 ],
@@ -244,8 +246,8 @@ class _ProgressIndicatorExampleState extends State<HomePage>
                           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
 
                       Container(
-                        margin: const EdgeInsets.all(16.0),
-                        padding: const EdgeInsets.all(16.0),
+                        margin: const EdgeInsets.all(5.0),
+                        padding: const EdgeInsets.all(1.0),
                         height: 200,
                         child: MyStatefulWidget(),
                       )
@@ -254,7 +256,7 @@ class _ProgressIndicatorExampleState extends State<HomePage>
             ),
             Container(
                 margin: const EdgeInsets.all(5.0),
-                padding: const EdgeInsets.all(15.0),
+                padding: const EdgeInsets.all(1.0),
                 decoration: BoxDecoration(
                     border: Border.all(
                       width: 1,
@@ -267,11 +269,14 @@ class _ProgressIndicatorExampleState extends State<HomePage>
 
                 child: Column(
                     children:[
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical: 4),
+                      ),
                       Text("중요일정",
                           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                       Container(
-                        margin: const EdgeInsets.all(16.0),
-                        padding: const EdgeInsets.all(16.0),
+                        margin: const EdgeInsets.all(1.0),
+                        padding: EdgeInsets.symmetric(vertical: 4),
                         height: 200,
                         child: MyImportantWidget(),
                       )
