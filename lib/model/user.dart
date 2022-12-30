@@ -1,6 +1,7 @@
 import 'todoproject.dart';
 
 class User {
+
   String? uid;
   late String name;
   late String email;

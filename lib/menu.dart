@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
+
+import 'package:todolist/mypage.dart';
+
 import 'package:todolist/model/todoproject.dart';
+import 'package:todolist/profile.dart';
+
 import 'package:todolist/project.dart';
 import 'package:todolist/running.dart';
+import 'package:todolist/today.dart';
 import 'package:todolist/upcomming.dart';
 import 'calender.dart';
 import 'logineduser.dart';
 import 'firebasecontroller.dart';
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 Future<String?> showMyDialog(BuildContext context, [TodoProject? project]) async {
   TextEditingController controller = TextEditingController(
@@ -55,35 +62,41 @@ class _MenuPageState extends State<MenuPage> {
         title: const Text('메뉴'),
       ),
 
-      body: FutureBuilder<QuerySnapshot>(
-        future: FirebaseController.projectGet,
+
+      body: StreamBuilder<QuerySnapshot>(
+        stream: FirebaseController.projectSnapshots,
+
         builder: _builder,
+
       ),
-      
+
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () async {
           String? inputText = await showMyDialog(context);
           if (inputText == null) return;
           TodoProject project = TodoProject(title: inputText);
-          var docRef = await FirebaseController.addProject(project);
-          project.pid = docRef.id;
-          FirebaseController.updateProject(project);
-          LoginedUser.loginedUser.projectList.add(docRef.id);
-          FirebaseController.updateUser(LoginedUser.loginedUser);
-          LoginedUser.updateProjectList();
-          setState(() {});
+          FirebaseController.addProject(project).then((docRef) { project.pid = docRef.id;
+            FirebaseController.updateProject(project);
+            LoginedUser.loginedUser.projectList.add(docRef.id);
+            FirebaseController.updateUser(LoginedUser.loginedUser);
+          });
         },
       ),
     );
   }
 }
+
 Widget _builder(BuildContext context, AsyncSnapshot snapshot) {
   List<Widget> listTiles = <Widget>[
     ListTile(
       leading: const Icon(Icons.account_circle),
       title: const Text('내 프로필'),
       onTap: () {
+        var push = Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const MyPage()),
+        );
       },
     ),
     ListTile(
@@ -100,6 +113,10 @@ Widget _builder(BuildContext context, AsyncSnapshot snapshot) {
       leading: Icon(Icons.star, color: Colors.yellow.shade700),
       title: const Text('오늘'),
       onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Today()),
+        );
       },
     ),
     ListTile(
@@ -131,20 +148,19 @@ Widget _builder(BuildContext context, AsyncSnapshot snapshot) {
     ),
   ];
 
-  for(int i = 0; i < LoginedUser.projectList.length; i++) {
+  for(int i = 0; i < LoginedUser.loginedUser.projectList.length; i++) {
     listTiles.add(
       ListTile(
-        title: Text(LoginedUser.projectList[i].title),
-        onTap: () {
+        title: Text(LoginedUser.projects[LoginedUser.loginedUser.projectList[i]]!.title),
+        onTap: () async {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ProjectPage(LoginedUser.projectList[i])),
+            MaterialPageRoute(builder: (context) => ProjectPage(LoginedUser.projects[LoginedUser.loginedUser.projectList[i]]!)),
           );
         },
       )
     );
   }
-
   return ListView(
     children: listTiles,
   );
