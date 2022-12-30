@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 class Todo {
   String? tid;
@@ -24,15 +25,17 @@ class Todo {
   }
 
   void fromJson(Map<String, dynamic> json) {
+    tid = json['tid'];
     title = json['title'];
     description = json['description'];
-    deadLine = json['deadline'];
+    //deadLine = json['deadline'];
     //finalDeadLine = json['finalDeadLine'];
     done = json['done'];
     important = json['important'];
   }
 
   Map<String, dynamic> toJson() => {
+    'tid': tid,
     'title': title,
     'description': description,
     'deadline': deadLine,
