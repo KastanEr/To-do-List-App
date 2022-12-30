@@ -26,7 +26,6 @@ class _LoginPageState extends State<LoginPage> {
               TextButton(
                 onPressed: () {
                   FirebaseController.addUser(User(name: '김윤섭', email: 'test123@naver.com', password: '1234'));
-
                 },
                 child: const Text('Regist'),
               ),

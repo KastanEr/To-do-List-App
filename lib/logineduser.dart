@@ -1,6 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
-import 'firebasecontroller.dart';
 import 'model/todo.dart';
 import 'model/todoproject.dart';
 import 'model/user.dart';

@@ -9,8 +9,6 @@ import 'firebasecontroller.dart';
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'model/todo.dart';
-
 Future<String?> showMyDialog(BuildContext context, [TodoProject? project]) async {
   TextEditingController controller = TextEditingController(
     text: project?.title ?? '',
@@ -117,7 +115,6 @@ Widget _builder(BuildContext context, AsyncSnapshot snapshot) {
       leading: const Icon(Icons.calendar_month, color: Colors.red,),
       title: const Text('캘린더'),
       onTap: () {
-        LoginedUser.updateProjectList();
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => CalendarPage()),

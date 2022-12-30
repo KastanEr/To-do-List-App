@@ -14,23 +14,7 @@ Map<DateTime, List<CleanCalendarEvent>> addevent={};
 
 
 class _CalendarPage extends State<CalendarPage> {
-
-//   Map<DateTime, List<CleanCalendarEvent>> add(){
-//
-//   for(int i=0; i<eventdate.length; i++){
-//     addevent=new Map.from({eventdate[i] : [
-//     CleanCalendarEvent(eventname[0],
-//     startTime: DateTime.now(),
-//     endTime: DateTime.now(),)
-//     ]});
-//   }
-//   return addevent;
-// }
-
-
-
-
-  Map<DateTime, List<CleanCalendarEvent>> _events = {
+  final Map<DateTime, List<CleanCalendarEvent>> _events = {
     eventdate[0] : [
      CleanCalendarEvent(eventname[0],
      startTime: DateTime(2022,12,30,10,0),
@@ -65,7 +49,7 @@ class _CalendarPage extends State<CalendarPage> {
       ),
       body: Calendar(
           startOnMonday: true,
-          weekDays: ['월', '화', '수', '목', '금', '토', '일'],
+          weekDays: const ['월', '화', '수', '목', '금', '토', '일'],
           events: _events,
           isExpandable: true,
           eventDoneColor: Colors.green,
@@ -76,7 +60,7 @@ class _CalendarPage extends State<CalendarPage> {
           todayButtonText: 'Today',
           isExpanded: true,
           expandableDateFormat: 'EEEE, dd. MMMM yyyy',
-          dayOfWeekStyle: TextStyle(
+          dayOfWeekStyle: const TextStyle(
               color: Colors.black, fontWeight: FontWeight.w800, fontSize: 11),
         ),
 

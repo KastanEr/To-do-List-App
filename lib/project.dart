@@ -1,11 +1,11 @@
-import 'dart:ffi';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:todolist/model/todoproject.dart';
 
+import 'additemonproject.dart';
+import 'firebasecontroller.dart';
 import 'home.dart';
+import 'logineduser.dart';
 import 'menu.dart';
 
 class ProjectPage extends StatefulWidget {
@@ -43,26 +43,8 @@ class _ProjectPage extends State<ProjectPage> {
             children: [
               Row(
                 children: [
-                  Text('Task',style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-                  IconButton(onPressed: (){
-                    setState(() {
-                      taskviewCheck[i] = !taskviewCheck[i];
-                    });
-
-                  }, icon: Icon(Icons.arrow_drop_down)),
-
+                  Text(projectMap[i],style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
                 ],
-              ),
-              Visibility(
-                visible: taskviewCheck[i],
-                child: Container(
-                  height: 200,
-                  child: ListView(
-                    padding: const EdgeInsets.all(8),
-                    children: _getStepList(),
-                  ),
-                ),
-              ),
               ),
             ],
           )

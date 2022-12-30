@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todolist/firebasecontroller.dart';
 import 'package:todolist/logineduser.dart';
 import 'package:todolist/model/todoproject.dart';
-import 'package:todolist/project.dart';
-
-import 'model/todo.dart';
+import 'package:todolist/model/todo.dart';
 
 class AddItemOnProjectPage extends StatefulWidget {
   late TodoProject project;
