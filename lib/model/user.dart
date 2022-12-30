@@ -1,15 +1,55 @@
-import 'project.dart';
-import 'notification.dart';
+import 'todoproject.dart';
 
 class User {
-  late String _uid;
-  late String _name;
-  late String _email;
-  late String _password;
-  late String _position;
-  late Project _default;
-  late List<Project> _projectList;
-  late List<Notification> _notificationList;
-  late int _numberOfTodo;
-  late int _numberOfDone;
+
+  String? uid;
+  late String name;
+  late String email;
+  late String password;
+  late TodoProject defaultProject;
+  late List<String> projectList;
+  late List<String> notificationList;
+  late int numberOfTodo;
+  late int numberOfDone;
+
+  User({
+    this.uid,
+    required this.name,
+    required this.email,
+    required this.password,
+    this.numberOfDone = 0,
+    this.numberOfTodo = 0,
+  }) {
+    defaultProject = TodoProject(title: 'default');
+    projectList = <String>[];
+    notificationList = <String>[];
+  }
+
+  User.fromJson(Map<String, dynamic> json) {
+    fromJson(json);
+  }
+
+  void fromJson(Map<String, dynamic> json) {
+    uid = json['uid'];
+    name = json['name'];
+    email = json['email'];
+    password = json['password'];
+    defaultProject = TodoProject.fromJson(json['defaultProject']);
+    projectList = json['projectList'].cast<String>();
+    notificationList = json['notificationList'].cast<String>();
+    numberOfTodo = json['numberOfTodo'];
+    numberOfDone = json['numberOfDone'];
+  }
+
+  Map<String, dynamic> toJson() => {
+    'uid': uid,
+    'name': name,
+    'email': email,
+    'password': password,
+    'defaultProject': defaultProject.toJson(),
+    'projectList': projectList,
+    'notificationList': notificationList,
+    'numberOfTodo': numberOfTodo,
+    'numberOfDone': numberOfDone,
+  };
 }

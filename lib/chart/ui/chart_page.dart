@@ -6,8 +6,8 @@ import '../ui_chart/bar_chart.dart';
 
 class ChartPage extends StatelessWidget {
 
+  // 바 차트에서 사용할 임의의 데이터
   List<double> points = [50, 0, 73, 100,150, 120, 200, 80]; // 그래프에 나타낼 임의의 포인트 값
-
   List<String> labels = [ // 가로축에 적을 텍스트(레이블)
     "2012",
     "2013",
@@ -18,7 +18,6 @@ class ChartPage extends StatelessWidget {
     "2018",
     "2019",
   ];
-
 
   @override
   Widget build(BuildContext context) {

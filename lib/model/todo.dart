@@ -1,29 +1,29 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Todo {
-  String? id;
+  String? tid;
   late String title;
   late String description;
-  DateTime? deadLine;
-  DateTime? finalDeadLine; 
+  Timestamp? deadLine;
+  Timestamp? finalDeadLine; 
   late bool done;
   late bool important;
 
   Todo({
-    this.id,
+    this.tid,
     String? title,
     String? description,
     this.deadLine,
     this.finalDeadLine,
     this.done = false,
     this.important = false,
-  }) : this.title = title ?? '제목 없음', this.description = description ?? '';
+  }) : title = title ?? '제목 없음', description = description ?? '';
 
   Todo.fromJson(Map<String, dynamic> json) {
     fromJson(json);
   }
 
   void fromJson(Map<String, dynamic> json) {
-    id = json['id'];
     title = json['title'];
     description = json['description'];
     deadLine = json['deadLine'];
@@ -33,7 +33,6 @@ class Todo {
   }
 
   Map<String, dynamic> toJson() => {
-    'id': id,
     'title': title,
     'description': description,
     'deadLine': deadLine,
@@ -43,5 +42,6 @@ class Todo {
   };
 
   void toggleDone() => done = !done;
+  
   void toggleImportant() => important = !important;
 }
